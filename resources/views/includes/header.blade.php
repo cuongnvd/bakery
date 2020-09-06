@@ -243,9 +243,12 @@ article{
        <i class="fa fa-search" style="background: none; color: white"></i>
       </a>
       <div class="dropdown-menu" style=" border: none;">
-        <form class="form-inline" action="" style="margin-left: 2%; width: 95%">
-            <input type="search" id="search" placeholder="   Search..." />
+        <form class="form-inline" action="{{route('search')}}" style="margin-left: 2%; width: 95%" method="GET">
+            <input type="text" id="search" placeholder="    Search..."  name="productkey" class="tim"/>
         </form>
+
+
+
       </div>
     </li>
       <li class="nav-item" >

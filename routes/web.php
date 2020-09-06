@@ -110,54 +110,81 @@ Route::get('/chitietproduct/{id}', 'HomeController@getchitietproduct')->name('ch
 
 Route::post('/postcontactnews','ContactNewsController@postcontactnews');
 
+//dang xuat
+Route::get('/logout','AdminController@logout');
 
 
+Route::get('/search','HomeController@searchweb')->name('search');
 
+// Route::group(['prefix' => 'admin','middleware' => 'adminlogin'], function () {
+// 	Route::group(['prefix' => 'Category'], function () {
 
-//thể loại
-Route::get('/Category', 'CategoryController@getCategory')->name('Category');
+		//thể loại
+		Route::get('/Category', 'CategoryController@getCategory')->name('Category');
 
-Route::post('/save-category','CategoryController@postCategory');
+		Route::post('/save-category','CategoryController@postCategory');
 
-Route::get('/CategoryList', 'CategoryController@getCategoryList')->name('CategoryList');
+		Route::get('/CategoryList', 'CategoryController@getCategoryList')->name('CategoryList');
 
-Route::DELETE('/category/delete/{id}', 'CategoryController@deleteCategory');
+		Route::DELETE('/category/delete/{id}', 'CategoryController@deleteCategory');
+	// });
 
-//Sản phẩm
-Route::get('/Product', 'ProductController@getProduct')->name('Product');
+	// Route::group(['prefix' => 'Product'], function () {
+		//Sản phẩm
+		Route::get('/Product', 'ProductController@getProduct')->name('Product');
 
-Route::post('/save-product', 'ProductController@postProduct');
+		Route::post('/save-product', 'ProductController@postProduct');
 
-Route::get('/ProductList', 'ProductController@getProductList')->name('ProductList');
+		Route::get('/ProductList', 'ProductController@getProductList')->name('ProductList');
 
-Route::DELETE('/product/delete/{id}', 'ProductController@deleteProduct');
+		Route::DELETE('/product/delete/{id}', 'ProductController@deleteProduct');
 
+		Route::get('/productedit/{id}', 'ProductController@productedit')->name('product.edit');
+        //cap nhat nguoi dung
+        Route::PATCH('/ProductUpdate/{id}', 'ProductController@updateproduct')->name('product_update');
 
-//Người dùng
-Route::get('/User', 'UserController@getUser')->name('User');
+	// });
 
-Route::post('/adduser','UserController@postAdduser');
+	// Route::group(['prefix' => 'User'], function () {
+		//Người dùng
+		Route::get('/User', 'UserController@getUser')->name('User');
 
-Route::post('/register','UserController@postregister');
+		Route::post('/adduser','UserController@postAdduser');
 
-Route::get('/UserList','UserController@getUserList')->name('UserList');
+		Route::post('/register','UserController@postregister');
 
-Route::DELETE('/user/delete/{id}', 'UserController@deleteUser');
+		Route::get('/UserList','UserController@getUserList')->name('UserList');
 
+		Route::DELETE('/user/delete/{id}', 'UserController@deleteUser');
 
-//tin tức
+		Route::get('/passwordedit/{id}', 'UserController@passwordedit')->name('password.edit');
+        //cap nhat nguoi dung
+        Route::PATCH('/UserUpdate/{id}', 'UserController@updatepassword')->name('password_update');
 
-Route::get('/News', 'NewsController@getNews')->name('News');
+	// });
 
-Route::post('/save-news','NewsController@postNews');
+	// Route::group(['prefix' => 'News'], function () {
+		//tin tức
+		Route::get('/News', 'NewsController@getNews')->name('News');
 
-Route::get('/NewsList', 'NewsController@getNewsList')->name('NewsList');
+		Route::post('/save-news','NewsController@postNews');
 
-Route::DELETE('/news/delete/{id}', 'NewsController@deleteNews');
+		Route::get('/NewsList', 'NewsController@getNewsList')->name('NewsList');
 
+		Route::DELETE('/news/delete/{id}', 'NewsController@deleteNews');
+
+		Route::get('/newsedit/{id}', 'NewsController@newsedit')->name('news.edit');
+        //cap nhat nguoi dung
+        Route::PATCH('/NewsUpdate/{id}', 'NewsController@updatenews')->name('news_update');
+
+	// });
 //emailpromotion
 
-Route::get('/EmailPromotionList', 'EmailPromotionController@getEmailPromotionList')->name('EmailPromotionList');
+	Route::get('/EmailPromotionList', 'EmailPromotionController@getEmailPromotionList')->name('EmailPromotionList');
 
 
-Route::get('/ContactList', 'ContactController@getContactList')->name('ContactList');
+	Route::get('/ContactList', 'ContactController@getContactList')->name('ContactList');
+
+	Route::get('/searchadmin','AdminController@searchadmin')->name('searchadmin');
+
+// });

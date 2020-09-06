@@ -6,6 +6,8 @@
   <title>AdminLTE 3 | Dashboard</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <meta name="csrf-token" content="{{ csrf_token() }}">
   <!-- Font Awesome -->
   <link rel="stylesheet" href="{{asset('plugins/fontawesome-free/css/all.min.css')}}">
   <!-- Ionicons -->
@@ -26,6 +28,8 @@
   <link rel="stylesheet" href="{{asset('plugins/summernote/summernote-bs4.css')}}">
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.2.0/sweetalert2.min.css">
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
@@ -49,9 +53,9 @@
     </ul>
 
     <!-- SEARCH FORM -->
-   <form class="form-inline ml-3" action="{{route('search')}}" method="GET">
+    <form class="form-inline ml-3" action="{{route('search')}}" method="GET">
       <div class="input-group input-group-sm">
-        <input class="form-control form-control-navbar tim" type="text"  id="search" name="adminkey" placeholder="Search" aria-label="Search">
+        <input class="form-control form-control-navbar tim" type="text"  id="search" name="tukhoa" placeholder="Search" aria-label="Search">
         <div class="input-group-append">
           <button class="btn btn-navbar" type="submit" class="check">
             <i class="fas fa-search"></i>
@@ -363,9 +367,7 @@
               </li>
             </ul>
           </li>
-
-
-
+          
         </ul>
       </nav>
       <!-- /.sidebar-menu -->
@@ -380,10 +382,8 @@
     <!-- /.content-header -->
 
     <!-- Main content -->
-
  <section class="content">
-    <form action="{{URL::to('/save-news')}}" method="post" enctype="multipart/form-data">
-      {{ csrf_field()}}
+
       <div class="container-fluid">
 
         <div class="row">
@@ -391,7 +391,144 @@
             <div class="card">
               <div class="card-header">
                 <h3 class="card-title"> 
-                  <p style="color: red;">
+
+                  
+
+                            <p style="color: red;">
+                    <?php
+                    $message = Session::get('message');
+                    if($message)
+                    {
+                    echo $message;
+                    Session::put('message',null);
+                    }
+                    ?> 
+                    </p> 
+                    @if($errors->any())
+                  <p>
+                    @foreach($errors->all() as $error)
+                        <strong style="color: red; text-align: center;">
+                           {{ $error }} <br />
+                         </strong>
+                    @endforeach
+                  </p>
+                @endif  
+              </h3>
+              <h1 style="font-size: 35px!important; color: #585858">
+                                <?php 
+                                  function doimau($str, $adminkey)
+                                  {
+                                    return str_replace($adminkey, "<span style='color:red;'>$adminkey</span>", $str);
+
+                                  }
+                                ?>
+                            </h1>
+                            <p style="margin-left: 90px; font-size: 32px;"><b>TÌM KIẾM</b><strong style="color: red">  {{$adminkey}}</strong> </p>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body">
+                <table id="example2" class="table table-bordered table-hover">
+               
+                  @foreach($searchproduct as $row)
+                  <tbody>
+                  
+                  <tr>
+                    <td>{{ $row->id }}</td>
+                    <td>{{ $row->name }}</td>
+                    <td>{!! $row->ingredient !!}</td>
+                    <td>{!! $row->content !!}</td>
+                    <td>
+                      <img src="{{ asset('/upload/'.$row->images )}}" style="max-width: 100px; max-height: 100px ; padding-top: 5px">
+                    </td>
+                    <td>{{ $row->cost }}</td>
+                    <td>
+                      <?php                        
+                          if ($row->category_id == 4) {
+                              echo "sản phẩm đặc trưng";
+                          } else if ($row->category_id == 5  ) {
+                              echo "bánh sinh nhật";
+                          } else if ($row->category_id == 6 ) {
+                              echo "bánh ăn sáng";
+                          } else if ($row->category_id == 7 ) {
+                              echo " bánh quy";
+                          } else if ($row->category_id == 8 ) {
+                              echo "kem cây";
+                          } else if ($row->category_id == 9 ) {
+                              echo "bánh tráng miệng";
+                          } else if ($row->category_id == 10 ) {
+                              echo "phụ kiện sinh nhật";
+                          } else if ($row->category_id == 11 ) {
+                              echo "trung thu";
+                          } else if ($row->category_id == 12 ) {
+                              echo "bánh sinh nhật bắp";
+                          } else if ($row->category_id == 13 ) {
+                              echo "bánh sinh nhật matcha";
+                          } else if ($row->category_id == 14 ) {
+                              echo "bánh sinh nhật thơm";
+                          } else if ($row->category_id == 15 ) {
+                              echo "bánh sinh nhật khoai môn";
+                          } else if ($row->category_id == 16 ) {
+                              echo "bánh sinh nhật cam";
+                          } else if ($row->category_id == 17 ) {
+                              echo "bánh sinh nhật dâu";
+                          } else if ($row->category_id == 18 ) {
+                              echo "bánh sinh nhật tiramisu";
+                          } else if ($row->category_id == 19 ) {
+                              echo "bánh sinh nhật kiosi";
+                          } else if ($row->category_id == 20 ) {
+                              echo "bánh sinh nhật cashew";
+                          } else if ($row->category_id == 21 ) {
+                              echo "bánh sinh nhật mousse cake";
+                          } else if ($row->category_id == 22 ) {
+                              echo "bánh sinh nhật các vị khác";
+                          } else if ($row->category_id == 23 ) {
+                              echo "bánh sinh nhật mẫu đặc biệt";
+                          } 
+                          
+                      ?>
+                        
+                      </td>
+                    <td>{{ $row->producthot }}</td>
+                    <td>{{ $row->productnew }}</td>
+                    <td>{!! $row->note !!}</td>
+                    <td>
+                      <button>
+                        <a href="{{route('product.edit',['id'=>$row->id])}}">Edit</a>
+                      </button>
+                      
+                        <button class="deleteProduct" id="delete"  data-id="{{ $row->id }}">Delete</button>
+                    </td>
+                  </tr>
+                  </tbody>
+                  @endforeach
+                  
+                </table>
+                <div style="margin-top: 2%;">
+                  {{ $searchproduct->links() }}
+                </div>
+              </div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+            
+
+          </div>
+          <!-- /.col -->
+        </div>
+        
+      </div>
+         
+    </section>
+    <br />
+    <section class="content">
+
+      <div class="container-fluid">
+
+        <div class="row">
+          <div class="col-12">
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title"> <p style="color: red;">
                     <?php
                     $message = Session::get('message');
                     if($message)
@@ -415,151 +552,154 @@
               <!-- /.card-header -->
               <div class="card-body">
                 <table id="example2" class="table table-bordered table-hover">
-                  <thead>
-                  <tr>
-                    <th >THÊM TIN TỨC</th>
                   
-                  </tr>
-                  </thead>
-             
+                  @foreach($user as $row)
                   <tbody>
                   
                   <tr>
+                    <td>{{ $row->id }}</td>
+                    <td >{{ $row->name }}</td>
+                
                     <td>
-                      <div class="form-group">
-                        <label for="inputName">TIÊU ĐỀ</label>
-                        <input type="text" name="title" class="form-control">
-                      </div>
+                      {{ $row->email }}
                     </td>
-                  </tr>
-                  <tr>
+                    <td>{{ $row->password }}</td>
                     <td>
-                      <div class="form-group">
-                        <label for="inputName">NỘI DUNG NGẮN</label>
-                        <textarea class="textarea" name="summary" placeholder="Place some text here"
-                              style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
-                      </div>
+                        <?php                        
+                          if ($row->role == 0) {
+                              echo "User";
+                          } else if ($row->role == 1  ) {
+                              echo "Admin";
+                          }
+                          
+                      ?>
                     </td>
-                  </tr>
-                  <tr>
                     <td>
-                      <div class="form-group">
-                    <label for="inputName">NỘI DUNG</label>
-                    <div class="mb-3">
-                    <textarea class="textarea" name="content" placeholder="Place some text here"
-                              style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
-                  </div>
-                  </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <div class="form-group">
-                        <label for="inputName">ẢNH</label><br />
-                        <input type="file" name="images">
-                      </div>
-                    </td>
-                  </tr>
-      
-                  <tr>
-                    <td>
-                      <div class="form-group">
-                        <label for="inputName">NGÀY ĐĂNG BÀI</label>
-                        <input type="date" name="sent_date" class="form-control">
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <div class="form-group">
-                    <label for="inputName">TIN ĐẶC BIỆT SAVORE</label>
-                    <div class="form-group">
-                      <select class="form-control select2" name="specialsavorenews" style="width: 100%;">
-                        <option value="0">1. KHÔNG</option>
-                        <option value="1">2. CÓ</option>
-
-                      </select>
-                    </div>
-                  </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <div class="form-group">
-                    <label for="inputName">TIN ĐẶC BIỆT KHUYẾN MÃI</label>
-                    <div class="form-group">
-                      <select class="form-control select2" name="specialpromotionnews" style="width: 100%;">
-                        <option value="0">1. KHÔNG</option>
-                        <option value="1">2. CÓ</option>
-
-                      </select>
-                    </div>
-                  </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <div class="form-group">
-                    <label for="inputName">TIN ĐẶC BIỆT</label>
-                    <div class="form-group">
-                      <select class="form-control select2" name="newsspecial" style="width: 100%;">
-                        <option value="0">1. KHÔNG</option>
-                        <option value="1">2. CÓ</option>
-
-                      </select>
-                    </div>
-                  </div>
-                    </td>
-                  </tr>
-               
-                    <tr>
-                    <td>
-                      <div class="form-group">
-                    <label for="inputName">LOẠI TIN TỨC</label>
-                    <div class="form-group">
-                      <select class="form-control select2" name="category_id" style="width: 100%;">
-                        <option value="1">1. SAVORE</option>
-                        <option value="2">2. KHUYẾN MÃI</option>
-                        <option value="3">3. TƯ VẤN KHÁCH HÀNG</option>
-                      </select>
-                    </div>
-                  </div>
+                      <button>
+                        <a href="{{route('password.edit',['id'=>$row->id])}}">Edit</a>
+                        
+                      </button>
+                     
+                        || 
+                       <button class="deleteUser" id="delete"  data-id="{{ $row->id }}">Delete</button>
+                      
                     </td>
                   </tr>
                   </tbody>
-                  <tfoot>
-                    <tr>
-                    <td>
-                      <div class="row">
-                        <div class="col-6">
-                          <a href="{{route('index')}}" class="btn btn-secondary">Cancel</a>
-                          <input type="submit" value="Thêm tin tức"  class="btn btn-success float-right">
-                        </div>
-                      </div>
-                    </td>
-                  </tr>
-                  </tfoot>
+                  @endforeach
                 </table>
               </div>
-
               <!-- /.card-body -->
             </div>
             <!-- /.card -->
 
+            {{ $user->links() }}
+          </div>
+          <!-- /.col -->
+        </div>
+        
+      </div>
+         
+    </section>
+    <br />
+     <section class="content">
+
+      <div class="container-fluid">
+
+        <div class="row">
+          <div class="col-12">
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title"> <p style="color: red;">
+                    <?php
+                    $message = Session::get('message');
+                    if($message)
+                    {
+                    echo $message;
+                    Session::put('message',null);
+                    }
+                    ?> 
+                    </p> 
+                    @if($errors->any())
+                  <p>
+                    @foreach($errors->all() as $error)
+                        <strong style="color: red; text-align: center;">
+                           {{ $error }} <br />
+                         </strong>
+                    @endforeach
+                  </p>
+                @endif  
+              </h3>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body">
+                <table id="example2" class="table table-bordered table-hover">
+                  
+                  @foreach($searchnews as $row)
+                  <tbody>
+                  
+                  <tr>
+                    <td>{{ $row->id }}</td>
+                    <td>{{ $row->title }}</td>
+                    <td>{!! $row->summary !!}</td>
+                    <td>
+                      <img src="{{ asset('/upload/'.$row->images )}}" style="max-width: 100px; max-height: 100px ; padding-top: 5px">
+                    </td>
+                    <td>{{ $row->sent_date }}</td>
+                    <td>{{ $row->newsspecial }}</td>
+                    <td>
+                        {{ $row->specialsavorenews }}
+                    </td>
+                    <td>
+                        {{ $row->specialpromotionnews }}
+                    </td>
+                    <td>
+                      <?php                        
+                          if ($row->category_id == 1) {
+                              echo "savore";
+                          } else if ($row->category_id == 2  ) {
+                              echo "khuyến mãi";
+                          } else if ($row->category_id == 3 ) {
+                              echo "tư vấn khách hàng";
+                          }
+                          
+                      ?>
+                        
+                      </td>
+                      
+             
+        
+                    <td>
+                        <button>
+                        <a href="{{route('news.edit',['id'=>$row->id])}}">Edit</a>
+                      </button>
+                        <button class="deleteNews" id="delete"  data-id="{{ $row->id }}">Delete</button>
+                    </td>
+                  </tr>
+                  </tbody>
+                  @endforeach
+                  
+                </table>
+                <div style="margin-top: 2%;">
+                  {{ $searchnews->links() }}
+                </div>
+              </div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+            
 
           </div>
           <!-- /.col -->
         </div>
         
       </div>
-        </form> 
+         
     </section>
-    
-    <br />
         </div>
         <!-- /.row (main row) -->
       </div><!-- /.container-fluid -->
-    </section>
+  
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
@@ -578,7 +718,7 @@
   <!-- /.control-sidebar -->
 </div>
 <!-- ./wrapper -->
-
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.2.0/sweetalert2.all.min.js"></script>
 <!-- jQuery -->
 <script src="{{asset('plugins/jquery/jquery.min.js')}}"></script>
 <!-- jQuery UI 1.11.4 -->
@@ -613,5 +753,7 @@
 <script src="{{asset('dist/js/pages/dashboard.js')}}"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="{{asset('dist/js/demo.js')}}"></script>
+
+<script src="{{asset('ajax.js')}}"></script>
 </body>
 </html>

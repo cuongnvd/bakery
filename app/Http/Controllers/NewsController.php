@@ -63,4 +63,49 @@ class NewsController extends Controller
         'success' => 'Xóa tin tức thành công!'
     ]);
     }
+
+    public function newsedit($id)
+    {
+        $news = News::findOrFail($id);
+
+        $pageName = 'Change Password';
+        return view('admin/NewsUpdate', compact('news'));
+    }
+    public function updatenews(Request $request, $id)
+    {
+        $news = News::find($id);
+        $news->title = $request->title;
+        $news->summary = $request->summary;
+        $news->images =  $request->images;
+        $news->fill($request->all()); 
+        if($request->hasFile('images')){
+            $file = $request->file('images');
+            $duoi = $file->getClientOriginalExtension();
+            if($duoi != 'jpg' && $duoi != 'png' && $duoi != 'jepg'){
+                Session::put('message','Bạn chỉ được chọn file css đuôi jpg,png,jepg');
+                return Redirect::to('News');
+            }
+                $filename = $file->getClientOriginalName();
+                $images = Str::random(4)."_".$filename;
+            
+                while(file_exists("upload".$images))
+                {
+                    $images = Str::random(4)."_".$filename;
+                }
+
+                $file->move('upload',$images);
+                $news->images = $images;
+            }
+            else{
+                $news->images = "";
+            }
+
+        $news->sent_date = $request->sent_date;
+        $news->category_id = $request->category_id;
+        $news->newsspecial = $request->newsspecial;
+        $news->specialsavorenews = $request->specialsavorenews;
+        $news->specialpromotionnews = $request->specialpromotionnews;
+        $news->save();
+        return redirect()->Route('NewsList')->with('message','Cập nhật thành công.');
+    }
 }

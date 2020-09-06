@@ -46,17 +46,30 @@ class AdminController extends Controller
    //dang nhap
     public function login(Request $request){
 
-     
-       $credentials = $request->only('email', 'password');
-        // print_r($credentials);die;
-        if (!Auth::attempt($credentials)) {
-            // Authentication passed...
-            return redirect()->back()->with('message', 'Đăng nhập không thành công');
-        }
+     $credentials = $request->only('email', 'password');
 
-        return redirect()->route('index');
+        if (Auth::attempt($credentials)) {
+            // Authentication passed...
+            return redirect()->intended('index');
+        }
     }
 
+    //out tai khoan
+      public function logout(){
+        Auth::logout();
+        return view('login');
+    }
 
+    //trang tim kiem
+    public function searchadmin(Request $request)
+    {
+        $adminkey = $request->adminkey;
+        $searchproduct = Product::where('name','like',"%$adminkey%")->orWhere('cost','like',"%$adminkey%")->paginate(6);
+        $user = User::where('name','like',"%$adminkey%")->orWhere('email','like',"%$adminkey%")->paginate(6);
+        $searchnews = News::where('title','like',"%$adminkey%")->paginate(6);
+        return view('admin/searchadmin',['searchproduct'=>$searchproduct,'searchnews'=>$searchnews,'user'=>$user,'adminkey'=>$adminkey]);
+    }
+
+   
  
 }

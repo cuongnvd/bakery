@@ -49,7 +49,7 @@
     </ul>
 
     <!-- SEARCH FORM -->
-   <form class="form-inline ml-3" action="{{route('search')}}" method="GET">
+    <form class="form-inline ml-3" action="{{route('search')}}" method="GET">
       <div class="input-group input-group-sm">
         <input class="form-control form-control-navbar tim" type="text"  id="search" name="adminkey" placeholder="Search" aria-label="Search">
         <div class="input-group-append">
@@ -184,11 +184,14 @@
           <img src="{{asset('dist/img/user2-160x160.jpg')}}" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a href="#" class="d-block">@if(Auth::check())
+          <a href="#" class="d-block">
+             
+                                @if(Auth::check())
                      
                                     {{Auth::user()->name}}
                                
-                                @endif</a>
+                                @endif
+          </a>
         </div>
       </div>
 
@@ -236,6 +239,7 @@
                   <p>User List</p>
                 </a>
               </li>
+              
           
             </ul>
           </li>
@@ -363,9 +367,7 @@
               </li>
             </ul>
           </li>
-
-
-
+          
         </ul>
       </nav>
       <!-- /.sidebar-menu -->
@@ -380,181 +382,90 @@
     <!-- /.content-header -->
 
     <!-- Main content -->
+      <form action="{{route('password_update',$users->id )}}" method="post">
+      @method('PATCH')
+      @csrf
+      <input type="hidden" name="id" value="{{$users->id }}">
+     <section class="content" style="margin-left: 5%">
+      <div class="row">
+        <div class="col-md-6">
+          <div class="card card-primary">
+            <div class="card-header">
+              <h3 class="card-title">General</h3>
 
- <section class="content">
-    <form action="{{URL::to('/save-news')}}" method="post" enctype="multipart/form-data">
-      {{ csrf_field()}}
-      <div class="container-fluid">
-
-        <div class="row">
-          <div class="col-12">
-            <div class="card">
-              <div class="card-header">
-                <h3 class="card-title"> 
-                  <p style="color: red;">
-                    <?php
-                    $message = Session::get('message');
-                    if($message)
-                    {
-                    echo $message;
-                    Session::put('message',null);
-                    }
-                    ?> 
-                    </p> 
-                    @if($errors->any())
-                  <p>
-                    @foreach($errors->all() as $error)
-                        <strong style="color: red; text-align: center;">
-                           {{ $error }} <br />
-                         </strong>
-                    @endforeach
-                  </p>
-                @endif  
-              </h3>
+              <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+                  <i class="fas fa-minus"></i></button>
               </div>
-              <!-- /.card-header -->
-              <div class="card-body">
-                <table id="example2" class="table table-bordered table-hover">
-                  <thead>
-                  <tr>
-                    <th >THÊM TIN TỨC</th>
-                  
-                  </tr>
-                  </thead>
-             
-                  <tbody>
-                  
-                  <tr>
-                    <td>
-                      <div class="form-group">
-                        <label for="inputName">TIÊU ĐỀ</label>
-                        <input type="text" name="title" class="form-control">
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <div class="form-group">
-                        <label for="inputName">NỘI DUNG NGẮN</label>
-                        <textarea class="textarea" name="summary" placeholder="Place some text here"
-                              style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <div class="form-group">
-                    <label for="inputName">NỘI DUNG</label>
-                    <div class="mb-3">
-                    <textarea class="textarea" name="content" placeholder="Place some text here"
-                              style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
-                  </div>
-                  </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <div class="form-group">
-                        <label for="inputName">ẢNH</label><br />
-                        <input type="file" name="images">
-                      </div>
-                    </td>
-                  </tr>
-      
-                  <tr>
-                    <td>
-                      <div class="form-group">
-                        <label for="inputName">NGÀY ĐĂNG BÀI</label>
-                        <input type="date" name="sent_date" class="form-control">
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <div class="form-group">
-                    <label for="inputName">TIN ĐẶC BIỆT SAVORE</label>
-                    <div class="form-group">
-                      <select class="form-control select2" name="specialsavorenews" style="width: 100%;">
-                        <option value="0">1. KHÔNG</option>
-                        <option value="1">2. CÓ</option>
-
-                      </select>
-                    </div>
-                  </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <div class="form-group">
-                    <label for="inputName">TIN ĐẶC BIỆT KHUYẾN MÃI</label>
-                    <div class="form-group">
-                      <select class="form-control select2" name="specialpromotionnews" style="width: 100%;">
-                        <option value="0">1. KHÔNG</option>
-                        <option value="1">2. CÓ</option>
-
-                      </select>
-                    </div>
-                  </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <div class="form-group">
-                    <label for="inputName">TIN ĐẶC BIỆT</label>
-                    <div class="form-group">
-                      <select class="form-control select2" name="newsspecial" style="width: 100%;">
-                        <option value="0">1. KHÔNG</option>
-                        <option value="1">2. CÓ</option>
-
-                      </select>
-                    </div>
-                  </div>
-                    </td>
-                  </tr>
-               
-                    <tr>
-                    <td>
-                      <div class="form-group">
-                    <label for="inputName">LOẠI TIN TỨC</label>
-                    <div class="form-group">
-                      <select class="form-control select2" name="category_id" style="width: 100%;">
-                        <option value="1">1. SAVORE</option>
-                        <option value="2">2. KHUYẾN MÃI</option>
-                        <option value="3">3. TƯ VẤN KHÁCH HÀNG</option>
-                      </select>
-                    </div>
-                  </div>
-                    </td>
-                  </tr>
-                  </tbody>
-                  <tfoot>
-                    <tr>
-                    <td>
-                      <div class="row">
-                        <div class="col-6">
-                          <a href="{{route('index')}}" class="btn btn-secondary">Cancel</a>
-                          <input type="submit" value="Thêm tin tức"  class="btn btn-success float-right">
-                        </div>
-                      </div>
-                    </td>
-                  </tr>
-                  </tfoot>
-                </table>
-              </div>
-
-              <!-- /.card-body -->
             </div>
-            <!-- /.card -->
-
-
+            
+            <div class="card-body">
+                 <p style="color: red;">
+                            <?php
+                            $message = Session::get('message');
+                            if($message)
+                            {
+                            echo $message;
+                            Session::put('message',null);
+                            }
+                            ?> 
+                            </p> 
+                            @if($errors->any())
+        <p>
+            @foreach($errors->all() as $error)
+                <strong style="color: red">
+                   {{ $error }} <br />
+                 </strong>
+            @endforeach
+        </p>
+        @endif  
+              <div class="form-group">
+                <label for="inputName">TÊN NGƯỜI DÙNG</label>
+                <input type="text" name="name" class="form-control" value="{{   $users->name  }}">
+              </div>
+              <div class="form-group">
+                <label for="inputName">EMAIL</label>
+                <input type="text" name="email" class="form-control" value="{{   $users->email  }}">
+              </div>
+              <div class="form-group">
+                <label for="inputName">MẬT KHẨU</label>
+                <input type="password" name="password" class="form-control" value="">
+              </div>
+              <div class="form-group">
+                <label for="inputName">NHẬP LẠI MẬT KHẨU</label>
+                <input type="password" name="passwordAgain" class="form-control">
+              </div>
+              <tr>
+                    <td>
+                      <div class="form-group">
+                    <label for="inputName">CẤP QUYỀN NGƯỜI DÙNG</label>
+                    <div class="form-group">
+                      <select class="form-control select2" name="role" style="width: 100%;">
+                        <option value="0">1. USER</option>
+                        <option value="1">2. ADMIN</option>
+                      </select>
+                    </div>
+                  </div>
+                    </td>
+                  </tr>
+              
+            </div>
+            <!-- /.card-body -->
           </div>
-          <!-- /.col -->
+          <!-- /.card -->
         </div>
-        
+
       </div>
-        </form> 
+      <div class="row">
+        <div class="col-6">
+          <a href="{{route('UserList')}}" class="btn btn-secondary">Cancel</a>
+          <input type="submit" value="Thêm người dùng"  class="btn btn-success float-right">
+        </div>
+ 
+      </div>
+      
     </section>
-    
+         </form>  
     <br />
         </div>
         <!-- /.row (main row) -->

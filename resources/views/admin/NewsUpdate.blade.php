@@ -49,7 +49,7 @@
     </ul>
 
     <!-- SEARCH FORM -->
-   <form class="form-inline ml-3" action="{{route('search')}}" method="GET">
+    <form class="form-inline ml-3" action="{{route('search')}}" method="GET">
       <div class="input-group input-group-sm">
         <input class="form-control form-control-navbar tim" type="text"  id="search" name="adminkey" placeholder="Search" aria-label="Search">
         <div class="input-group-append">
@@ -382,8 +382,11 @@
     <!-- Main content -->
 
  <section class="content">
-    <form action="{{URL::to('/save-news')}}" method="post" enctype="multipart/form-data">
-      {{ csrf_field()}}
+    <form action="{{route('news_update', $news->id )}}" method="post" enctype="multipart/form-data">
+      @method('PATCH')
+      @csrf
+
+    <input type="hidden" name="id" value="{{$news->id }}">
       <div class="container-fluid">
 
         <div class="row">
@@ -428,7 +431,7 @@
                     <td>
                       <div class="form-group">
                         <label for="inputName">TIÊU ĐỀ</label>
-                        <input type="text" name="title" class="form-control">
+                        <input type="text" name="title" class="form-control"  value="{{ $news->title}}">
                       </div>
                     </td>
                   </tr>
@@ -437,7 +440,7 @@
                       <div class="form-group">
                         <label for="inputName">NỘI DUNG NGẮN</label>
                         <textarea class="textarea" name="summary" placeholder="Place some text here"
-                              style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
+                              style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;">{{ $news->summary}}</textarea>
                       </div>
                     </td>
                   </tr>
@@ -447,7 +450,7 @@
                     <label for="inputName">NỘI DUNG</label>
                     <div class="mb-3">
                     <textarea class="textarea" name="content" placeholder="Place some text here"
-                              style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
+                              style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;">{{ $news->content}}</textarea>
                   </div>
                   </div>
                     </td>
@@ -465,7 +468,7 @@
                     <td>
                       <div class="form-group">
                         <label for="inputName">NGÀY ĐĂNG BÀI</label>
-                        <input type="date" name="sent_date" class="form-control">
+                        <input type="date" name="sent_date" class="form-control" value="{{ $news->sent_date}}">
                       </div>
                     </td>
                   </tr>
@@ -474,7 +477,7 @@
                       <div class="form-group">
                     <label for="inputName">TIN ĐẶC BIỆT SAVORE</label>
                     <div class="form-group">
-                      <select class="form-control select2" name="specialsavorenews" style="width: 100%;">
+                      <select class="form-control select2" name="specialsavorenews" style="width: 100%;" value="{{ $news->specialsavorenews }}">
                         <option value="0">1. KHÔNG</option>
                         <option value="1">2. CÓ</option>
 
@@ -488,7 +491,7 @@
                       <div class="form-group">
                     <label for="inputName">TIN ĐẶC BIỆT KHUYẾN MÃI</label>
                     <div class="form-group">
-                      <select class="form-control select2" name="specialpromotionnews" style="width: 100%;">
+                      <select class="form-control select2" name="specialpromotionnews" style="width: 100%;" value="{{ $news->specialpromotionnews }}">
                         <option value="0">1. KHÔNG</option>
                         <option value="1">2. CÓ</option>
 
@@ -502,7 +505,7 @@
                       <div class="form-group">
                     <label for="inputName">TIN ĐẶC BIỆT</label>
                     <div class="form-group">
-                      <select class="form-control select2" name="newsspecial" style="width: 100%;">
+                      <select class="form-control select2" name="newsspecial" style="width: 100%;" value="{{ $news->newsspecial }}">
                         <option value="0">1. KHÔNG</option>
                         <option value="1">2. CÓ</option>
 
@@ -517,7 +520,7 @@
                       <div class="form-group">
                     <label for="inputName">LOẠI TIN TỨC</label>
                     <div class="form-group">
-                      <select class="form-control select2" name="category_id" style="width: 100%;">
+                      <select class="form-control select2" name="category_id" style="width: 100%;" value="{{ $news->category_id }}">
                         <option value="1">1. SAVORE</option>
                         <option value="2">2. KHUYẾN MÃI</option>
                         <option value="3">3. TƯ VẤN KHÁCH HÀNG</option>
@@ -533,7 +536,7 @@
                       <div class="row">
                         <div class="col-6">
                           <a href="{{route('index')}}" class="btn btn-secondary">Cancel</a>
-                          <input type="submit" value="Thêm tin tức"  class="btn btn-success float-right">
+                          <input type="submit" value="Cập nhật tin tức"  class="btn btn-success float-right">
                         </div>
                       </div>
                     </td>

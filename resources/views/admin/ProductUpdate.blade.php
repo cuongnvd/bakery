@@ -49,7 +49,7 @@
     </ul>
 
     <!-- SEARCH FORM -->
-   <form class="form-inline ml-3" action="{{route('search')}}" method="GET">
+    <form class="form-inline ml-3" action="{{route('search')}}" method="GET">
       <div class="input-group input-group-sm">
         <input class="form-control form-control-navbar tim" type="text"  id="search" name="adminkey" placeholder="Search" aria-label="Search">
         <div class="input-group-append">
@@ -366,6 +366,7 @@
 
 
 
+          
         </ul>
       </nav>
       <!-- /.sidebar-menu -->
@@ -382,8 +383,12 @@
     <!-- Main content -->
 
  <section class="content">
-    <form action="{{URL::to('/save-news')}}" method="post" enctype="multipart/form-data">
-      {{ csrf_field()}}
+
+    <form action="{{route('product_update', $product->id )}}" method="post" enctype="multipart/form-data">
+      @method('PATCH')
+    @csrf
+
+    <input type="hidden" name="id" value="{{$product->id }}">
       <div class="container-fluid">
 
         <div class="row">
@@ -417,7 +422,7 @@
                 <table id="example2" class="table table-bordered table-hover">
                   <thead>
                   <tr>
-                    <th >THÊM TIN TỨC</th>
+                    <th >THÊM SẢN PHẨM</th>
                   
                   </tr>
                   </thead>
@@ -427,17 +432,17 @@
                   <tr>
                     <td>
                       <div class="form-group">
-                        <label for="inputName">TIÊU ĐỀ</label>
-                        <input type="text" name="title" class="form-control">
+                        <label for="inputName">TÊN SẢN PHẨM</label>
+                        <input type="text" name="name" class="form-control" value="{{ $product->name}}">
                       </div>
                     </td>
                   </tr>
                   <tr>
                     <td>
                       <div class="form-group">
-                        <label for="inputName">NỘI DUNG NGẮN</label>
-                        <textarea class="textarea" name="summary" placeholder="Place some text here"
-                              style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
+                        <label for="inputName">THÀNH PHẦN</label>
+                        <textarea class="textarea" name="ingredient" placeholder="Place some text here"
+                              style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;" >{{ $product->ingredient}}</textarea>
                       </div>
                     </td>
                   </tr>
@@ -447,7 +452,18 @@
                     <label for="inputName">NỘI DUNG</label>
                     <div class="mb-3">
                     <textarea class="textarea" name="content" placeholder="Place some text here"
-                              style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
+                              style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"> {{ $product->content}}</textarea>
+                  </div>
+                  </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <div class="form-group">
+                    <label for="inputName">GHI CHÚ</label>
+                    <div class="mb-3">
+                    <textarea class="textarea" name="note" placeholder="Place some text here"
+                              style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;">{{ $product->note}}</textarea>
                   </div>
                   </div>
                     </td>
@@ -464,68 +480,72 @@
                   <tr>
                     <td>
                       <div class="form-group">
-                        <label for="inputName">NGÀY ĐĂNG BÀI</label>
-                        <input type="date" name="sent_date" class="form-control">
+                        <label for="inputName">GIÁ SẢN PHẨM</label>
+                        <input type="number" name="cost" class="form-control" value="{{ $product->cost}}">
                       </div>
                     </td>
                   </tr>
-                  <tr>
-                    <td>
-                      <div class="form-group">
-                    <label for="inputName">TIN ĐẶC BIỆT SAVORE</label>
-                    <div class="form-group">
-                      <select class="form-control select2" name="specialsavorenews" style="width: 100%;">
-                        <option value="0">1. KHÔNG</option>
-                        <option value="1">2. CÓ</option>
-
-                      </select>
-                    </div>
-                  </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <div class="form-group">
-                    <label for="inputName">TIN ĐẶC BIỆT KHUYẾN MÃI</label>
-                    <div class="form-group">
-                      <select class="form-control select2" name="specialpromotionnews" style="width: 100%;">
-                        <option value="0">1. KHÔNG</option>
-                        <option value="1">2. CÓ</option>
-
-                      </select>
-                    </div>
-                  </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <div class="form-group">
-                    <label for="inputName">TIN ĐẶC BIỆT</label>
-                    <div class="form-group">
-                      <select class="form-control select2" name="newsspecial" style="width: 100%;">
-                        <option value="0">1. KHÔNG</option>
-                        <option value="1">2. CÓ</option>
-
-                      </select>
-                    </div>
-                  </div>
-                    </td>
-                  </tr>
-               
+        
+                  
                     <tr>
                     <td>
                       <div class="form-group">
-                    <label for="inputName">LOẠI TIN TỨC</label>
+                    <label for="inputName">SẢN PHẨM HOT</label>
                     <div class="form-group">
-                      <select class="form-control select2" name="category_id" style="width: 100%;">
-                        <option value="1">1. SAVORE</option>
-                        <option value="2">2. KHUYẾN MÃI</option>
-                        <option value="3">3. TƯ VẤN KHÁCH HÀNG</option>
+                      <select class="form-control select2" name="producthot" style="width: 100%;" value="{{ $product->producthot}}">
+                        <option value="0">1. KHÔNG</option>
+                        <option value="1">2. Có</option>
                       </select>
                     </div>
                   </div>
                     </td>
                   </tr>
+                    <tr>
+                    <td>
+                      <div class="form-group">
+                    <label for="inputName">SẢN PHẨM NEW</label>
+                    <div class="form-group">
+                      <select class="form-control select2" name="productnew" style="width: 100%;" value="{{ $product->productnew}}">
+                        <option value="0">1. KHÔNG</option>
+                        <option value="1">2. Có</option>
+                      </select>
+                    </div>
+                  </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <div class="form-group">
+                    <label for="inputName">THỂ LOẠI SẢN PHẨM</label>
+                    <div class="form-group">
+                      <select class="form-control select2" name="category_id" style="width: 100%;" value="{{ $product->category_id}}">
+                        <option value="4">1. SẢN PHẨM ĐẶC TRƯNG</option>
+                        <option value="5">2. BÁNH SINH NHẬT</option>
+                        <option value="6">3. BÁNH ĂN SÁNG</option>
+                        <option value="7">4. BÁNH QUY</option>
+                        <option value="8">5. KEM CÂY</option>
+                        <option value="9">6. BÁNH TRÁNG MIỆNG</option>
+                        <option value="10">7. PHỤ KIỆN SINH NHẬT</option>
+                        <option value="11">8. TRUNG THU</option>
+                        <option value="12">9. BÁNH SINH NHẬT BẮP</option>
+                        <option value="13">10. BÁNH SINH NHẬT MATCHA</option>
+                        <option value="14">11. BÁNH SINH NHẬT THƠM</option>
+                        <option value="15">12. BÁNH SINH NHẬT KHOAI MÔN</option>
+                        <option value="16">13. BÁNH SINH NHẬT CAM</option>
+                        <option value="17">14. BÁNH SINH NHẬT DÂU</option>
+                        <option value="18">15. BÁNH SINH NHẬT TIRAMISU</option>
+                        <option value="19">16. BÁNH SINH NHẬT KIOSI</option>
+                        <option value="20">17. BÁNH SINH NHẬT CASHEW</option>
+                        <option value="21">18. BÁNH SINH NHẬT MOUSSE CAKE</option>
+                        <option value="22">19. BÁNH SINH NHẬT CÁC VỊ KHÁC</option>
+                        <option value="23">20. BÁNH SINH NHẬT MẪU ĐẶC BIỆT</option>
+
+                      </select>
+                    </div>
+                  </div>
+                    </td>
+                  </tr>
+                  
                   </tbody>
                   <tfoot>
                     <tr>
@@ -533,7 +553,7 @@
                       <div class="row">
                         <div class="col-6">
                           <a href="{{route('index')}}" class="btn btn-secondary">Cancel</a>
-                          <input type="submit" value="Thêm tin tức"  class="btn btn-success float-right">
+                          <input type="submit" value="Cập nhật sản phẩm"  class="btn btn-success float-right">
                         </div>
                       </div>
                     </td>

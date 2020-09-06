@@ -61,65 +61,23 @@
                                             <div class="box-title" style="margin-bottom: 20px;border: solid 1px #387b2b;">
                                                 <div class="title">
                                                     <h3>
-                                                        TIN XEM NHIỀU
+                                                        TIN MỚI NHẤT
                                                     </h3>
                                                 </div>
                                                 <div class="content">
                                                     <div class="fa-item">
-                                                        <div class="item">
-                                                            <div class="images">
-                                                                <a href="" style="display: block;padding-top: 66.666667%;position: relative;">
-                                                                    <img src="https://savourebakery.com/vnt_upload/news/05_2019/thumbs/370_crop_11.jpg" style="position: absolute;width: 100%;top: 0;left: 0;">
-                                                                </a>
-                                                            </div>
-                                                            <div class="title">
-                                                                <a href="" style="text-decoration: none;color: #555555;">ĐÂY LÀ NỘI DUNG</a>
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="item">
-                                                            <div class="images">
-                                                                <a href="" style="display: block;padding-top: 66.666667%;position: relative;">
-                                                                    <img src="https://savourebakery.com/vnt_upload/news/05_2019/thumbs/370_crop_11.jpg" style="position: absolute;width: 100%;top: 0;left: 0;">
-                                                                </a>
-                                                            </div>
-                                                            <div class="title">
-                                                                <a href="" style="text-decoration: none;color: #555555;">ĐÂY LÀ NỘI DUNG</a>
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="item">
-                                                            <div class="images">
-                                                                <a href="" style="display: block;padding-top: 66.666667%;position: relative;">
-                                                                    <img src="https://savourebakery.com/vnt_upload/news/05_2019/thumbs/370_crop_11.jpg" style="position: absolute;width: 100%;top: 0;left: 0;">
-                                                                </a>
-                                                            </div>
-                                                            <div class="title">
-                                                                <a href="" style="text-decoration: none;color: #555555;">ĐÂY LÀ NỘI DUNG</a>
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="item">
-                                                            <div class="images">
-                                                                <a href="" style="display: block;padding-top: 66.666667%;position: relative;">
-                                                                    <img src="https://savourebakery.com/vnt_upload/news/05_2019/thumbs/370_crop_11.jpg" style="position: absolute;width: 100%;top: 0;left: 0;">
-                                                                </a>
-                                                            </div>
-                                                            <div class="title">
-                                                                <a href="" style="text-decoration: none;color: #555555;">ĐÂY LÀ NỘI DUNG</a>
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="item">
-                                                            <div class="images">
-                                                                <a href="" style="display: block;padding-top: 66.666667%;position: relative;">
-                                                                    <img src="https://savourebakery.com/vnt_upload/news/05_2019/thumbs/370_crop_11.jpg" style="position: absolute;width: 100%;top: 0;left: 0;">
-                                                                </a>
-                                                            </div>
-                                                            <div class="title">
-                                                                <a href="" style="text-decoration: none;color: #555555;">ĐÂY LÀ NỘI DUNG</a>
-                                                            </div>
-                                                        </div>
+                                                         @foreach($allnews as $row)
+                                                          <div class="item">
+                                                              <div class="images">
+                                                                  <a href="{{route('chitiet', ['id' => $row->id])}}" style="display: block;padding-top: 66.666667%;position: relative;">
+                                                                      <img src="{{ asset('upload/'.$row->images )}}" style="position: absolute;width: 100%;top: 0;left: 0;">
+                                                                  </a>
+                                                              </div>
+                                                              <div class="title">
+                                                                  <a href="{{route('chitiet', ['id' => $row->id])}}" style="text-decoration: none;color: #555555;">{{$row->title}}</a>
+                                                              </div>
+                                                          </div>
+                                                          @endforeach
                                                     </div>
                                                 </div>
                                             </div>

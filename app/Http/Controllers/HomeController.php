@@ -256,10 +256,11 @@ class HomeController extends Controller
     }
 
     public function getchitiet($id)
-    {
+    {   
+        $allnews = News::orderBy('id', 'DESC')->limit(10); 
         $chitiet = News::find($id);
         
-        return view('chitiet',compact('chitiet'));
+        return view('chitiet',compact('chitiet','allnews'));
     }
       public function postcontactnews(Request $request){
 
@@ -271,5 +272,13 @@ class HomeController extends Controller
         return Redirect::to('chitiet');
     }
 
+
+    //trang tim kiem
+    public function searchweb(Request $request)
+    {
+      $productkey = $request->productkey;
+      $product = Product::where('name','like',"%$productkey%")->orWhere('cost','like',"%$productkey%")->paginate(12);
+      return view('search',['product'=>$product,'productkey'=>$productkey]);
+    }
 
 }
