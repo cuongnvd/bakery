@@ -264,7 +264,7 @@ article{
         </a>
         <ul class="sub-head">
           <li><a href="">Thông tin </a> </li>
-          <li><a href=""> Đăng xuất </a></li>
+          <li><a href="{{url('logout')}}"> Đăng xuất </a></li>
         </ul>
           </li> -->
     <li class="nav-item" >

@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 class AdminLoginMiddleware
 {
@@ -15,17 +16,20 @@ class AdminLoginMiddleware
      */
     public function handle($request, Closure $next)
     {
-        if(Auth::check())
+       if(Auth::check())
         {
+
+      
             $user = Auth::user();
+            //dd($user);
             if($user->role==1)
                 return $next($request);
             else
-                return redirect('trangchu');
+                return redirect()->back();
     
         }
         
-        return redirect('trangchu');
+        return redirect()->back();
     }
 
     

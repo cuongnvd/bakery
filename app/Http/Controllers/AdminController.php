@@ -45,13 +45,18 @@ class AdminController extends Controller
 
    //dang nhap
     public function login(Request $request){
-
-     $credentials = $request->only('email', 'password');
-
-        if (Auth::attempt($credentials)) {
+        $credentials = $request->only('email', 'password');
+        $url_redirect = $request->url_previous;
+        if (!Auth::attempt($credentials)) {
             // Authentication passed...
-            return redirect()->intended('index');
+            return redirect()->back()->with('message', 'Đăng nhập không thành công');
         }
+
+        if(Auth::user()->role == 1){
+            $url_redirect = route('index');
+       }
+
+        return redirect()->to($url_redirect);
     }
 
     //out tai khoan
@@ -64,10 +69,10 @@ class AdminController extends Controller
     public function searchadmin(Request $request)
     {
         $adminkey = $request->adminkey;
-        $searchproduct = Product::where('name','like',"%$adminkey%")->orWhere('cost','like',"%$adminkey%")->paginate(6);
+        $searchproduct = Product::where('name','like',"%$adminkey%")->orWhere('category_id','like',"%$adminkey%")->paginate(6);
         $user = User::where('name','like',"%$adminkey%")->orWhere('email','like',"%$adminkey%")->paginate(6);
         $searchnews = News::where('title','like',"%$adminkey%")->paginate(6);
-        return view('admin/searchadmin',['searchproduct'=>$searchproduct,'searchnews'=>$searchnews,'user'=>$user,'adminkey'=>$adminkey]);
+        return view('admin.searchadmin',['searchproduct'=>$searchproduct,'searchnews'=>$searchnews,'user'=>$user,'adminkey'=>$adminkey]);
     }
 
    

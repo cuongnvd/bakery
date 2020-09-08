@@ -42,7 +42,7 @@
                     <div class="mid-content">
                         <div class="vnt-product">
                             <div class="row">
-                                <div class="col-lg-9">
+                                <div class="col-lg-12">
                                     <div class="titleL" > 
                                         <h1>
                                             {{$chitiet->title}}
@@ -55,7 +55,7 @@
                                         {!! $chitiet->content !!}
                                     </div>
                                 </div>
-                                <div class="col-lg-3">
+                               <!--  <div class="col-lg-3">
                                     <div class="lineheight" style="position: relative;height: auto">
                                         <div class="linewrap" style="width: auto;top: 110px;">
                                             <div class="box-title" style="margin-bottom: 20px;border: solid 1px #387b2b;">
@@ -83,7 +83,56 @@
                                             </div>
                                         </div>
                                     </div>
+                                </div> -->
+
+<div class="container-fluid" style="border-bottom: 1px solid black; margin-top: 5%">
+  
+</div>
+
+<div class="wrapCont">
+            <div class="wrapper">
+                <div class="box_mid">
+                    <div class="mid-title">
+                        <div class="titleL">
+                            <h1 style="font-size: 35px!important; color: #585858; margin-top: 5%">TIN TỨC KHÁC</h1>
+                        </div>
+                    </div>
+                    <div class="mid-content">
+                  
+                        
+                        <div class="row">
+                            @foreach($allnews as $type)
+                            @foreach($type->get as $row)
+                            <div class="col-lg-4">
+                                <div class="news">
+                                    <div class="img">
+                                        <a href="{{route('chitiet', ['id' => $row->id])}}">
+                                            <img src="{{ asset('upload/'.$row->images )}}" style="border: 0px;max-height: 100%; max-width: 100%">
+                                        </a>
+                                    </div>
+                                    <div class="title">
+                                        <h3 style="font-size: 100%;font-weight: bold;">
+                                            <a href="{{route('chitiet', ['id' => $row->id])}}">
+                                                {{$row->title}}
+                                            </a>
+                                        </h3>
+                                    </div>
+                                    <div class="time">
+                                        {{$row->sent_date}}
+                                    </div>
+                                    <div class="content">
+                                        {!! $row->summary !!}
+                                    </div>
                                 </div>
+                            </div>
+                            @endforeach
+                            @endforeach
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
                             </div>
                         </div>
 

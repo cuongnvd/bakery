@@ -23,7 +23,7 @@ Route::get('/', function () {
 // Route::get('/home', 'HomeController@index')->name('home');
 
 
-Route::get('/trangchu', 'HomeController@gettrangchu')->name('trangchu');
+Route::get('/', 'HomeController@gettrangchu')->name('trangchu');
 
 Route::post('/save-emailpromotion', 'EmailPromotionController@postEmailPromotion');
 
@@ -99,7 +99,7 @@ Route::get('/chitietproduct', 'HomeController@getchitietproduct')->name('chitiet
 
 Route::get('/cart', 'HomeController@getcart')->name('cart');
 
-Route::get('/index', 'AdminController@getindex')->name('index');
+
 
 
 Route::post('/post-login','AdminController@login')->name('post.login');
@@ -116,8 +116,11 @@ Route::get('/logout','AdminController@logout');
 
 Route::get('/search','HomeController@searchweb')->name('search');
 
-// Route::group(['prefix' => 'admin','middleware' => 'adminlogin'], function () {
-// 	Route::group(['prefix' => 'Category'], function () {
+
+
+
+Route::group(['prefix' => 'admin','middleware' => 'adminlogin'], function () {
+	Route::group(['prefix' => 'category'], function () {
 
 		//thể loại
 		Route::get('/Category', 'CategoryController@getCategory')->name('Category');
@@ -127,9 +130,9 @@ Route::get('/search','HomeController@searchweb')->name('search');
 		Route::get('/CategoryList', 'CategoryController@getCategoryList')->name('CategoryList');
 
 		Route::DELETE('/category/delete/{id}', 'CategoryController@deleteCategory');
-	// });
+	});
 
-	// Route::group(['prefix' => 'Product'], function () {
+	Route::group(['prefix' => 'product'], function () {
 		//Sản phẩm
 		Route::get('/Product', 'ProductController@getProduct')->name('Product');
 
@@ -143,9 +146,9 @@ Route::get('/search','HomeController@searchweb')->name('search');
         //cap nhat nguoi dung
         Route::PATCH('/ProductUpdate/{id}', 'ProductController@updateproduct')->name('product_update');
 
-	// });
+	});
 
-	// Route::group(['prefix' => 'User'], function () {
+	Route::group(['prefix' => 'users'], function () {
 		//Người dùng
 		Route::get('/User', 'UserController@getUser')->name('User');
 
@@ -161,13 +164,13 @@ Route::get('/search','HomeController@searchweb')->name('search');
         //cap nhat nguoi dung
         Route::PATCH('/UserUpdate/{id}', 'UserController@updatepassword')->name('password_update');
 
-	// });
+	});
 
-	// Route::group(['prefix' => 'News'], function () {
+	Route::group(['prefix' => 'news'], function () {
 		//tin tức
 		Route::get('/News', 'NewsController@getNews')->name('News');
 
-		Route::post('/save-news','NewsController@postNews');
+		Route::post('/save-news','NewsController@postNews')->name('news.add');
 
 		Route::get('/NewsList', 'NewsController@getNewsList')->name('NewsList');
 
@@ -177,7 +180,7 @@ Route::get('/search','HomeController@searchweb')->name('search');
         //cap nhat nguoi dung
         Route::PATCH('/NewsUpdate/{id}', 'NewsController@updatenews')->name('news_update');
 
-	// });
+	});
 //emailpromotion
 
 	Route::get('/EmailPromotionList', 'EmailPromotionController@getEmailPromotionList')->name('EmailPromotionList');
@@ -187,4 +190,6 @@ Route::get('/search','HomeController@searchweb')->name('search');
 
 	Route::get('/searchadmin','AdminController@searchadmin')->name('searchadmin');
 
-// });
+	Route::get('/index', 'AdminController@getindex')->name('index');
+
+});

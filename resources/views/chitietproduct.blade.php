@@ -24,7 +24,9 @@
          font-size: 16px;
     line-height: 24px;
     }
-
+    .box-title .content .item:hover{
+        border: 1px solid #387b2b;
+    }
     form .tick span{
         font-weight: bold;
     min-height: 23px;
@@ -61,7 +63,16 @@
     padding: 3px;
     }
 
+    .col-sm-5 img{
+        width: 100%;
+    height: 100%;
+    transition: 1s;
+    }
 
+    .col-sm-5:hover img{
+    transform: scale(1.1);
+    transition: 1s;
+    }
 
 </style>
 <section>
@@ -78,11 +89,11 @@
                     <div class="mid-content">
                         <div class="vnt-product">
                             <div class="row">
-                                <div class="col-lg-9" >
+                                <div class="col-lg-12" >
                               
                                     <div class="row">
-                                        <div class="col-sm-12" >
-                                            <img src="{{ asset('upload/'.$chitietproduct->images )}}" style="width: 70%;height: 100%;overflow: hidden;">
+                                        <div class="col-sm-5" >
+                                            <img src="{{ asset('upload/'.$chitietproduct->images )}}" style="width: 100%;height: 100%;overflow: hidden;">
                                         </div>
                                         <div class="col-sm-12" style="margin-top: 5%">
                                             <div class="title">
@@ -152,41 +163,116 @@
                                     </div>
 
                                 </div>
-        <div class="col-lg-3">
-            <div class="lineheight" style="position: relative;height: auto">
-                <div class="linewrap" style="width: auto;top: 110px;">
-                    <div class="box-title" style="margin-bottom: 20px;border: solid 1px #387b2b;">
-                        <div class="title">
-                            <h3>
-                                SẢN PHẨM MỚI
-                            </h3>
-                        </div>
-                        <div class="content">
-                            <div class="fa-item">
-                                @foreach($productnew as $row)
-                                <div class="item">
-                                    <div class="images">
-                                        <a href="{{route('chitietproduct', ['id' => $row->id])}}" style="display: block;padding-top: 66.666667%;position: relative;">
-                                            <img src="{{ asset('upload/'.$row->images )}}" style="position: absolute;width: 100%;top: 0;left: 0;">
-                                        </a>
-                                    </div>
-                                    <div class="title">
-                                        <a href="{{route('chitietproduct', ['id' => $row->id])}}" style="text-decoration: none;color: #555555;">{{$row->name}}</a>
-                                    </div>
+                <div class="container-fluid" style="border-bottom: 1px solid black; margin-top: 5%">
+                    
+                </div>     
+                <div class="container-fluid" style="margin-top: 5%; ">
+                  <h1 class="title" style=" color: #585858; font-size: 35px">SẢN PHẨM KHÁC</h1>
+                    <!--  <div class="slider" id="center">
+                        @foreach($allproductct as $type)
+                        @foreach($type->post as $row)
+                        <div >
+                        <div class="product iframeBox">
+                            <div class="img">
+                                <a href="{{route('chitietproduct', ['id' => $row->id])}}">
+                                    <img src="{{ asset('upload/'.$row->images )}}">
+                                </a>
+                            </div>
+                            <div class="tend">
+                                 <h3>
+                                     <a href="">
+                                         {{$row->name}}
+                                     </a>
+                                 </h3>
+                            </div>
+                            <div class="des">
+                                
+                            </div>
+                            <div class="price">
+                                <div class="red">
+                                    <b>Giá {{$row->cost}}</b>
+                                    <br/>
+                            
                                 </div>
-                                @endforeach
-                             
-                             
-
-                              
-
-                              
+                            </div>
+                            <div class="link">
+                                <a href="{{route('chitietproduct', ['id' => $row->id])}}">
+                                    <span>XEM CHI TIẾT</span>
+                                </a>
+                            </div>
+                            <div class="ribbon">
+                                                        
+                            </div>
+                            <div class="effect">
+                                                        
                             </div>
                         </div>
+                        </div>
+                        @endforeach
+                        @endforeach
+                        </div> -->
                     </div>
-                </div>
-            </div>
-        </div>
+                        
+                    <div class="mid-content">
+                        <div class="vnt-product">
+                            
+                            <div class="row">
+                            @foreach($allproductct as $type)
+                            @foreach($type->productLimit as $row)
+                            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                                <div class="product iframeBox">
+                                    <div class="img">
+                                        <a href="{{route('chitietproduct', ['id' => $row->id])}}">
+                                            <img src="{{ asset('upload/'.$row->images )}}">
+                                        </a>
+                                    </div>
+                                    <div class="tend">
+                                         <h3>
+                                             <a href="">
+                                                 {{$row->name}}
+                                             </a>
+                                         </h3>
+                                    </div>
+                                    <div class="des">
+                                        {!! $row->content !!}
+                                    </div>
+                                    <div class="price">
+                                        <div class="red">
+                                             <b>Giá {{$row->cost}}</b>
+                                        </div>
+                                    </div>
+                                    <div class="link">
+                                        <a href="{{route('chitietproduct', ['id' => $row->id])}}">
+                                            <span>XEM CHI TIẾT</span>
+                                        </a>
+                                    </div>
+                                    <div class="ribbon">
+                                        
+                                    </div>
+                                    <div class="effect">
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                            @endforeach
+                            @endforeach
+
+                      
+
+
+
+
+
+
+                            </div>
+                            
+                        </div>
+
+                    </div>
+                
+                        {{$allproductct->links()}}
+       
+                    
                             </div>
                         </div>
 

@@ -19,7 +19,7 @@ class Product extends Model
 
     public $timestamps = false;
 
-    public function getCostAttribute($value )
+    public function getcostAttribute($value )
     {	
     	if ($value != null){
     		return number_format("$value",0,",","." );
@@ -49,6 +49,8 @@ class Product extends Model
 
         return $payments ;
     }
+
+   
 
 
 }

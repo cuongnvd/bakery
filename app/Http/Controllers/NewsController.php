@@ -44,7 +44,7 @@ class NewsController extends Controller
 
     	$news->save();
     	Session::put('message','Thêm tin tức thành công');
-    	return Redirect::to('News');
+    	return redirect()->route('news.add');
     	}
 
     public function getNewsList(){

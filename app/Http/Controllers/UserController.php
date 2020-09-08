@@ -43,14 +43,13 @@ class UserController extends Controller
         ],
        
         );
-      
+       
         $users = new User();
         $users->name = $request->name;
         $users->email = $request->email;
         $users->role = $request->role;
         $users->password = bcrypt($request->password);
         $users->save();
-          // dd($users);
         return redirect()->back()->with('message', 'Đăng ký người dùng thành công');
         }
 

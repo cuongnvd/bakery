@@ -59,7 +59,7 @@
       </li>
     </ul>
 
-    <form class="form-inline ml-3" action="{{route('search')}}" method="GET">
+    <form class="form-inline ml-3" action="{{route('searchadmin')}}" method="GET">
       <div class="input-group input-group-sm">
         <input class="form-control form-control-navbar tim" type="text"  id="search" name="adminkey" placeholder="Search" aria-label="Search">
         <div class="input-group-append">
@@ -166,7 +166,7 @@
         <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
          
           <div class="dropdown-divider"></div>
-          <a href="" class="dropdown-item">
+          <a href="{{url('logout')}}" class="dropdown-item">
             <i class="fa fa-sign-out"></i> Logout
          
           </a>

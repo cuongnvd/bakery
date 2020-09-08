@@ -68,10 +68,10 @@ class Kernel extends HttpKernel
         'signed' => \Illuminate\Routing\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
-        // 'News' => \App\Http\Middleware\News::class,
-        // 'Product' => \App\Http\Middleware\Product::class,
-        //  'User' => \App\Http\Middleware\Users::class,
-        //  'Category' => \App\Http\Middleware\Category::class,
-        //  'adminlogin' => \App\Http\Middleware\AdminLoginMiddleware::class,
+        'news' => \App\Http\Middleware\News::class,
+        'product' => \App\Http\Middleware\Product::class,
+         'users' => \App\Http\Middleware\Users::class,
+         'category' => \App\Http\Middleware\Category::class,
+         'adminlogin' => \App\Http\Middleware\AdminLoginMiddleware::class,
     ];
 }

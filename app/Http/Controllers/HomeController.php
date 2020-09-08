@@ -18,6 +18,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
 
 
+
 class HomeController extends Controller
 {
     /**
@@ -25,16 +26,18 @@ class HomeController extends Controller
      *
      * @return void
      */
-    // public function __construct()
-    // {
-    //     $this->middleware('auth');
-    // }
+    public function __construct()
+    {
+        // $this->middleware('auth');
+    }
 
     /**
      * Show the application dashboard.
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
+   
+
     public function gettrangchu()
     {   
         $producthot = Product::where('producthot',true)->orderBy('id', 'DESC')->get();
@@ -46,7 +49,7 @@ class HomeController extends Controller
 
     public function getallproduct()
     {
-        $allproduct = Product::orderBy('id', 'DESC')->limit(10)->paginate(9); 
+        $allproduct = Category::paginate(12); 
         
         return view('allproduct',compact(['allproduct']));
     
@@ -243,10 +246,10 @@ class HomeController extends Controller
 
     public function getchitietproduct($id)
     {   
-        $productnew = Product::where('productnew',true)->orderBy('id', 'DESC')->get();
+        $allproductct = Category::paginate(9);
         $chitietproduct = Product::find($id);
-        
-        return view('chitietproduct',compact('chitietproduct','productnew'));
+      
+        return view('chitietproduct',compact('chitietproduct','allproductct'));
 
     }
 
@@ -257,7 +260,7 @@ class HomeController extends Controller
 
     public function getchitiet($id)
     {   
-        $allnews = News::orderBy('id', 'DESC')->limit(10); 
+        $allnews = Category::all(); 
         $chitiet = News::find($id);
         
         return view('chitiet',compact('chitiet','allnews'));
