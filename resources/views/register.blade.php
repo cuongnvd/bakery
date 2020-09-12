@@ -125,7 +125,7 @@
                             @endif  
                     <div class="mid-content">
                         <div class="Account">
-                            <form action="{{URL::to('register')}}" method="post">
+                            <form action="{{route('register_add')}}" method="post">
                             {{ csrf_field()}}
                             <div class="form">
                                     <div class="groupform">
