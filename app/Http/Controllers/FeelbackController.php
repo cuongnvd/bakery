@@ -14,7 +14,7 @@ class FeelbackController extends Controller
 {
     public function getfeelback()
     {	
-    	$feelback = Feelback::orderBy('id', 'DESC')->paginate(10);
+    	$feelback = Feelback::orderBy('id', 'DESC')->paginate(8);
     	return view('feelback',compact(['feelback']));
     }
     

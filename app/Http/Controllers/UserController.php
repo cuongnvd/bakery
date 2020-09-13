@@ -69,6 +69,7 @@ class UserController extends Controller
     ]);
     }
 
+
     public function postregister(Request $request){
 
         $this->validate($request,
@@ -100,7 +101,7 @@ class UserController extends Controller
         $users->password = bcrypt($request->password);
         $users->save();
           // dd($users);
-        return redirect()->back()->with('message', 'Đăng ký người dùng thành công');
+        return view('login');
         }
 
 

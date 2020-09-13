@@ -22,8 +22,7 @@ class CategoryController extends Controller
     	$category->fill($request->all());
     	$category->save();
 
-    	Session::put('message','Thêm thể loại thành công');
-    	return Redirect::to('Category');
+    	return redirect()->back()->with('message', 'Thêm thể loại thành công');
     	}
     public function getCategoryList(){
 

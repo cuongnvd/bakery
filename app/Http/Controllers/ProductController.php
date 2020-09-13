@@ -44,8 +44,7 @@ class ProductController extends Controller
 
 
     	$product->save();
-    	Session::put('message','Thêm sản phẩm thành công');
-    	return Redirect::to('Product');
+    	return redirect()->back()->with('message', 'Thêm tin tức thành công');
     	}
 
     public function getProductList(){
