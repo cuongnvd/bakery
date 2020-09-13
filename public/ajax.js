@@ -16,7 +16,7 @@ $(".deleteCategory").click(function(){
 
         if (e.value === true) {
              $.ajax({
-                url: "/category/delete/"+id,
+                url: "/admin/category/delete/"+id,
                 type: 'DELETE',
                 data: {
                     "id": id,
@@ -65,7 +65,7 @@ $(".deleteUser").click(function(){
 
         if (e.value === true) {
              $.ajax({
-                url: "/user/delete/"+id,
+                url: "/admin/users/delete/"+id,
                 type: 'DELETE',
                 data: {
                     "id": id,
@@ -109,7 +109,7 @@ $(".deleteProduct").click(function(){
 
         if (e.value === true) {
              $.ajax({
-                url: "/product/delete/"+id,
+                url: "/admin/product/delete/"+id,
                 type: 'DELETE',
                 data: {
                     "id": id,
@@ -154,7 +154,7 @@ $(".deleteNews").click(function(){
 
         if (e.value === true) {
              $.ajax({
-                url: "/news/delete/"+id,
+                url: "/admin/news/delete/"+id,
                 type: 'DELETE',
                 data: {
                     "id": id,
@@ -179,3 +179,54 @@ $(".deleteNews").click(function(){
     })
    
 });
+
+
+// --cart--
+
+$(document).ready(function(){
+  $('.add-to-cart').click(function(){
+      var id = $(this).data('id');
+      var cart_product_id = $('.cart_product_id_' + id).val
+      ();
+      var cart_product_name = $('.cart_product_name_' + id).val();
+      var cart_product_images = $('.cart_product_images_' + id).val();
+      var cart_product_cost = $('.cart_product_cost_' + id).val();
+      var cart_product_qty = $('.cart_product_qty_' + id).val();
+      var _token = $('input[name="_token"]').val();
+
+      $.ajax({
+            url: '/add-cart-ajax',
+            method: 'POST',
+            data:{cart_product_id:cart_product_id,cart_product_name:cart_product_name,
+                cart_product_images:cart_product_images,cart_product_cost:cart_product_cost,
+                cart_product_qty:cart_product_qty,_token:_token},
+            success:function(data){
+           swal("Hello world!");
+            }
+      });
+  });
+});
+
+
+$(document).ready(function(){
+        $('.feelbackbutton').click(function(){
+            swal("Thông báo!", "Bạn đã viết cảm nhận thành công!", "success");
+
+        });
+    });
+
+
+$(document).ready(function(){
+        $('.contactbutton').click(function(){
+            swal("Thông báo!", "Bạn đã gửi ý kiến thành công!","success");
+
+        });
+    });
+
+
+$(document).ready(function(){
+        $('.registerbutton').click(function(){
+            swal("Thông báo!", "Bạn đã đăng ký tài khoản thành công!", "success");
+
+        });
+    });
