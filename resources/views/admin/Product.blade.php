@@ -383,7 +383,7 @@
     <!-- Main content -->
 
  <section class="content">
-    <form action="{{URL::to('/save-product')}}" method="post" enctype="multipart/form-data">
+    <form action="{{route('Product.add')}}" method="post" enctype="multipart/form-data">
       {{ csrf_field()}}
       <div class="container-fluid">
 
@@ -521,7 +521,8 @@
                       <div class="form-group">
                     <label for="inputName">THỂ LOẠI SẢN PHẨM</label>
                     <div class="form-group">
-                      <select class="form-control select2" name="category_id" style="width: 100%;">
+                      <select class="form-control select2" name="category_id" id="category" style="width: 100%;" >
+                        <option hidden="">--CHỌN THỂ LOẠI SẢN PHẨM---</option>
                         <option value="4">1. SẢN PHẨM ĐẶC TRƯNG</option>
                         <option value="5">2. BÁNH SINH NHẬT</option>
                         <option value="6">3. BÁNH ĂN SÁNG</option>
@@ -638,3 +639,4 @@
 <script src="{{asset('dist/js/demo.js')}}"></script>
 </body>
 </html>
+<!-- onChange="alert('Thể loại sản phẩm bạn đã chọn:' toptions[selectIndex].textarea)" -->

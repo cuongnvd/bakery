@@ -433,7 +433,7 @@
                     <td>{{ $row->id }}</td>
                     <td>{{ $row->name }}</td>
                     <td>
-                         <button class="deleteCategory" id="delete"  data-id="{{ $row->id }}">Delete</button>
+                      <button class="deleteCategory" id="/delete"  data-id="{{ $row->id }}">Delete</button>
                     </td>
                   </tr>
                   </tbody>

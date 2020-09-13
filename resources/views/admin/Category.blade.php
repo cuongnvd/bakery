@@ -380,7 +380,7 @@
     <!-- /.content-header -->
 
     <!-- Main content -->
-    <form action="{{URL::to('/save-category')}}" method="post">
+    <form action="{{route('Category.add')}}" method="post">
       {{ csrf_field()}}
      <section class="content" style="margin-left: 5%">
       <div class="row">

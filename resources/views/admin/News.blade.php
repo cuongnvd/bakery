@@ -382,7 +382,7 @@
     <!-- Main content -->
 
  <section class="content">
-    <form action="{{URL::to('/save-news')}}" method="post" enctype="multipart/form-data">
+    <form action="{{route('News.add')}}" method="post" enctype="multipart/form-data">
       {{ csrf_field()}}
       <div class="container-fluid">
 

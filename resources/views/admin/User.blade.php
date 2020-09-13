@@ -378,7 +378,7 @@
     <!-- /.content-header -->
 
     <!-- Main content -->
-      <form action="{{URL::to('/adduser')}}" method="post">
+      <form action="{{route('User_add')}}" method="post">
       {{ csrf_field()}}
      <section class="content" style="margin-left: 5%">
       <div class="row">
@@ -434,7 +434,7 @@
                       <div class="form-group">
                     <label for="inputName">CẤP QUYỀN NGƯỜI DÙNG</label>
                     <div class="form-group">
-                      <select class="form-control select2" name="role" style="width: 100%;">
+                      <select class="form-control select2" name="role" style="width: 100%;" >
                         <option value="0">1. USER</option>
                         <option value="1">2. ADMIN</option>
                       </select>
