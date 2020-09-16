@@ -30,7 +30,7 @@ class AdminController extends Controller
     	$news = News::all()->count();
     	$product = Product::all()->count();
     	$user = User::all()->count();
-        return view('admin.index',compact(['category','contact','emailpromotion','feelback','news','product','user']));
+        return view('admin.index',compact(['category','contact','emailpromotion','feelback','news','product','user']),array('user' => Auth::user()));
     }
 
    

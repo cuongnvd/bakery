@@ -10,7 +10,7 @@ use Mail;
 use Session;
 use App\Http\Requests;
 use Illuminate\Support\Facades\Redirect;
-
+use Illuminate\Support\Str;
 use App\User;
 
 class UserController extends Controller
@@ -46,6 +46,29 @@ class UserController extends Controller
        
         $users = new User();
         $users->name = $request->name;
+        $users->images =  $request->images;
+        $users->fill($request->all()); 
+        if($request->hasFile('images')){
+            $file = $request->file('images');
+            $duoi = $file->getClientOriginalExtension();
+            if($duoi != 'jpg' && $duoi != 'png' && $duoi != 'jepg'){
+                Session::put('message','Bạn chỉ được chọn file css đuôi jpg,png,jepg');
+                return Redirect::to('News');
+            }
+                $filename = $file->getClientOriginalName();
+                $images = Str::random(4)."_".$filename;
+            
+                while(file_exists("upload".$images))
+                {
+                    $images = Str::random(4)."_".$filename;
+                }
+
+                $file->move('upload',$images);
+                $users->images = $images;
+            }
+            else{
+                $users->images = "";
+            }
         $users->email = $request->email;
         $users->role = $request->role;
         $users->password = bcrypt($request->password);
@@ -54,7 +77,7 @@ class UserController extends Controller
         }
 
     public function getUserList(){
-       $user = User::select('id','name','email','password','role')->orderBy('id','DESC')->paginate(5);
+       $user = User::select('id','name','email','password','role','images')->orderBy('id','DESC')->paginate(5);
         // print_r($theme);
         return view('admin/UserList',compact('user'));
     	}
@@ -136,6 +159,29 @@ class UserController extends Controller
         ],
         );
         $users = User::find($id);
+        $users->images =  $request->images;
+        $users->fill($request->all()); 
+        if($request->hasFile('images')){
+            $file = $request->file('images');
+            $duoi = $file->getClientOriginalExtension();
+            if($duoi != 'jpg' && $duoi != 'png' && $duoi != 'jepg'){
+                Session::put('message','Bạn chỉ được chọn file css đuôi jpg,png,jepg');
+                return Redirect::to('News');
+            }
+                $filename = $file->getClientOriginalName();
+                $images = Str::random(4)."_".$filename;
+            
+                while(file_exists("upload".$images))
+                {
+                    $images = Str::random(4)."_".$filename;
+                }
+
+                $file->move('upload',$images);
+                $users->images = $images;
+            }
+            else{
+                $users->images = "";
+            }
         $users->name = $request->name;
         $users->email = $request->email;
         $users->password = bcrypt($request->password);

@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Redirect;session_start();
 
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
-
+use App\User;
 
 
 class HomeController extends Controller
@@ -238,6 +238,63 @@ class HomeController extends Controller
         return view('register');
     }
 
+    public function getinfo()
+    {   
+        return view('info', array('user' => Auth::user()) );
+
+    }
+
+    public function getmypassword()
+    {
+        return view('mypassword');
+    }
+
+    public function getmycart()
+    {
+        return view('mycart');
+    }
+
+
+    public function getchangeavatar()
+    {
+        return view('changeavatar');
+
+    }
+
+    public function postchangeavatar(Request $request)
+    {   
+
+        // $user = new User();
+        // $user->fill($request->all()); 
+        // if($request->hasFile('images')){
+        //     $file = $request->file('images');
+        //     $duoi = $file->getClientOriginalExtension();
+        //     if($duoi != 'jpg' && $duoi != 'png' && $duoi != 'jepg'){
+        //         Session::put('message','Bạn chỉ được chọn file css đuôi jpg,png,jepg');
+        //         return Redirect::to('News');
+        //     }
+        //         $filename = $file->getClientOriginalName();
+        //         $images = Str::random(4)."_".$filename;
+            
+        //         while(file_exists("upload".$images))
+        //         {
+        //             $images = Str::random(4)."_".$filename;
+        //         }
+
+        //         $file->move('upload',$images);
+        //         $user->images = $images;
+        //     }
+        //     else{
+        //         $user->images = "";
+        //     }
+
+        // $user = Auth::user();
+        // $user->save();
+        // return view('changeavatar', array('user' => Auth::user()) );
+        
+    }
+
+
     public function getdeliverypolicy()
     {
         return view('deliverypolicy');
@@ -253,10 +310,7 @@ class HomeController extends Controller
 
     }
 
-    public function getcart()
-    {
-        return view('cart');
-    }
+
 
     public function getchitiet($id)
     {   

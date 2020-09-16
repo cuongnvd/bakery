@@ -17,6 +17,11 @@ class FeelbackController extends Controller
     	$feelback = Feelback::orderBy('id', 'DESC')->paginate(8);
     	return view('feelback',compact(['feelback']));
     }
+    public function getFeelbackList(){
+        $feelbacklist = Feelback::select('id','name','images','content','date',)->orderBy('id','DESC');
+
+        return view('admin/AdminFeelbackList',compact('feelbacklist'));
+    }
     
     public function postfeelback(Request $request)
     {   
@@ -50,4 +55,5 @@ class FeelbackController extends Controller
         return Redirect::to('feelback');
         return view('feelback');
     }
+    
 }
