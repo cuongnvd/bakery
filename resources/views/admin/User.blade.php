@@ -181,7 +181,7 @@
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="image">
-          <img src="{{asset('dist/img/user2-160x160.jpg')}}" class="img-circle elevation-2" alt="User Image">
+          <img src="{{ asset('/upload/'.Auth::user()->images )}}" class="img-circle elevation-2" alt="User Image" >
         </div>
         <div class="info">
           <a href="#" class="d-block">@if(Auth::check())
@@ -197,23 +197,7 @@
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
-          <li class="nav-item has-treeview menu-open">
-            <a href="#" class="nav-link active">
-              <i class="nav-icon fas fa-tachometer-alt"></i>
-              <p>
-                Dashboard
-                <i class="right fas fa-angle-left"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="./index.html" class="nav-link active">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Dashboard v1</p>
-                </a>
-              </li>
-            </ul>
-          </li>
+          
           <li class="nav-header">OPTION</li>
           <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
@@ -363,7 +347,26 @@
               </li>
             </ul>
           </li>
-          
+          <li class="nav-item has-treeview">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-edit"></i>
+              <p>
+                FeelbackList
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{route('AdminFeelbackList')}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>FeelbackList</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+
+
+
         </ul>
       </nav>
       <!-- /.sidebar-menu -->
@@ -378,7 +381,7 @@
     <!-- /.content-header -->
 
     <!-- Main content -->
-      <form action="{{route('User_add')}}" method="post">
+      <form action="{{route('User_add')}}" method="post" enctype="multipart/form-data">
       {{ csrf_field()}}
      <section class="content" style="margin-left: 5%">
       <div class="row">
@@ -413,6 +416,11 @@
                               @endforeach
                             </p>
                             @endif  
+
+              <div class="form-group">
+                <label for="inputName">ẢNH</label><br />
+                <input type="file" name="images">
+              </div>
               <div class="form-group">
                 <label for="inputName">TÊN NGƯỜI DÙNG</label>
                 <input type="text" name="name" class="form-control">
