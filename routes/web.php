@@ -22,10 +22,8 @@ Route::get('/', function () {
 
 // Route::get('/home', 'HomeController@index')->name('home');
 
-
+//danh sách danh mục thể loại-------------
 Route::get('/', 'HomeController@gettrangchu')->name('trangchu');
-
-Route::post('/save-emailpromotion', 'EmailPromotionController@postEmailPromotion');
 
 Route::get('/allproduct', 'HomeController@getallproduct')->name('allproduct');
 
@@ -55,19 +53,11 @@ Route::get('/breakfastcake', 'HomeController@getbreakfastcake')->name('breakfast
 
 Route::get('/cakedessert', 'HomeController@getcakedessert')->name('cakedessert');
 
-Route::get('/contact', 'ContactController@getcontact')->name('contact');
-
-Route::post('/save-contact','ContactController@postContact');
-
 Route::get('/cookie', 'HomeController@getcookie')->name('cookie');
 
 Route::get('/deliverypolicy', 'HomeController@getdeliverypolicy')->name('deliverypolicy');
 
 Route::get('/cream', 'HomeController@getcream')->name('cream');
-
-Route::get('/feelback', 'FeelbackController@getfeelback')->name('feelback');
-
-Route::post('/save-feel','FeelbackController@postfeelback');
 
 Route::get('/midautumn', 'HomeController@getmidautumn')->name('midautumn');
 
@@ -86,35 +76,88 @@ Route::get('/productspecial', 'HomeController@getproductspecial')->name('product
 Route::get('/specialbirthday', 'HomeController@getspecialbirthday')->name('specialbirthday');
 
 Route::get('/birthdayaccessories', 'HomeController@getbirthdayaccessories')->name('birthdayaccessories');
+//------------------
 
-Route::get('/forgetpass', 'HomeController@getforgetpass')->name('forgetpass');
 
-Route::get('/login', 'HomeController@getlogin')->name('login');
-
-Route::get('/register', 'HomeController@getregister')->name('register');
-
+//cái này ko biết :V vì chưa check---------
 Route::get('/chitiet', 'HomeController@getchitiet')->name('chitiet');
 
 Route::get('/chitietproduct', 'HomeController@getchitietproduct')->name('chitietproduct');
 
-Route::get('/cart', 'HomeController@getcart')->name('cart');
+Route::post('/postcontactnews','ContactNewsController@postcontactnews');
+//--------------
 
 
 
+//gửi email nhận tin khuyến mãi--------------
+Route::post('/save-emailpromotion', 'EmailPromotionController@postEmailPromotion');
+//---------------
+
+
+//trang cảm nhận khách hàng-------
+Route::get('/feelback', 'FeelbackController@getfeelback')->name('feelback');
+
+Route::post('/save-feel','FeelbackController@postfeelback');
+//----------
+
+
+//trang liên hệ khách hàng--------
+Route::get('/contact', 'ContactController@getcontact')->name('contact');
+
+Route::post('/save-contact','ContactController@postContact');
+//-----------
+
+
+//thông tin khách hàng khi đăng nhập----------
+Route::get('/info', 'HomeController@getinfo')->name('info');
+
+Route::get('/changeavatar', 'HomeController@getchangeavatar')->name('changeavatar');
+
+Route::get('/mypassword', 'HomeController@getmypassword')->name('mypassword');
+
+Route::get('/mycart', 'HomeController@getmycart')->name('mycart');
+
+Route::post('changeavatar', 'HomeController@postchangeavatar');
+//---------------
+
+
+//trang login và đăng ký, quên mật khẩu-----------
+Route::get('/login', 'HomeController@getlogin')->name('login');
+
+Route::get('/register', 'HomeController@getregister')->name('register');
+
+Route::post('/register','UserController@postregister')->name('register_add');
 
 Route::post('/post-login','AdminController@login')->name('post.login');
 
+Route::get('/forgetpass', 'HomeController@getforgetpass')->name('forgetpass');
+//------------------
+
+
+//chi tiet tin tuc va san pham--------
 Route::get('/chitiet/{id}', 'HomeController@getchitiet')->name('chitiet');
 
 Route::get('/chitietproduct/{id}', 'HomeController@getchitietproduct')->name('chitietproduct');
+// -------------
 
-Route::post('/postcontactnews','ContactNewsController@postcontactnews');
 
 //dang xuat
 Route::get('/logout','AdminController@logout');
+//--------
 
 
+//tim kiem
 Route::get('/search','HomeController@searchweb')->name('search');
+//--------
+
+//gio hang--------------
+Route::get('/cart', 'CartController@giohang')->name('cart');
+
+Route::get('/add-to-cart/{id}','CartController@muahang');
+
+Route::get('/delete/{id}','CartController@remoteproduct');
+//--------------
+
 
 
 
@@ -125,22 +168,22 @@ Route::group(['prefix' => 'admin','middleware' => 'adminlogin'], function () {
 		//thể loại
 		Route::get('/Category', 'CategoryController@getCategory')->name('Category');
 
-		Route::post('/save-category','CategoryController@postCategory');
+		Route::post('/save-category','CategoryController@postCategory')->name('Category.add');
 
 		Route::get('/CategoryList', 'CategoryController@getCategoryList')->name('CategoryList');
 
-		Route::DELETE('/category/delete/{id}', 'CategoryController@deleteCategory');
+		Route::DELETE('/delete/{id}', 'CategoryController@deleteCategory')->name('Category.delete');
 	});
 
 	Route::group(['prefix' => 'product'], function () {
 		//Sản phẩm
 		Route::get('/Product', 'ProductController@getProduct')->name('Product');
 
-		Route::post('/save-product', 'ProductController@postProduct');
+		Route::post('/save-product', 'ProductController@postProduct')->name('Product.add');
 
 		Route::get('/ProductList', 'ProductController@getProductList')->name('ProductList');
 
-		Route::DELETE('/product/delete/{id}', 'ProductController@deleteProduct');
+		Route::DELETE('/delete/{id}', 'ProductController@deleteProduct');
 
 		Route::get('/productedit/{id}', 'ProductController@productedit')->name('product.edit');
         //cap nhat nguoi dung
@@ -152,13 +195,11 @@ Route::group(['prefix' => 'admin','middleware' => 'adminlogin'], function () {
 		//Người dùng
 		Route::get('/User', 'UserController@getUser')->name('User');
 
-		Route::post('/adduser','UserController@postAdduser');
-
-		Route::post('/register','UserController@postregister');
+		Route::post('/adduser','UserController@postAdduser')->name('User_add');
 
 		Route::get('/UserList','UserController@getUserList')->name('UserList');
 
-		Route::DELETE('/user/delete/{id}', 'UserController@deleteUser');
+		Route::DELETE('/delete/{id}', 'UserController@deleteUser');
 
 		Route::get('/passwordedit/{id}', 'UserController@passwordedit')->name('password.edit');
         //cap nhat nguoi dung
@@ -170,11 +211,11 @@ Route::group(['prefix' => 'admin','middleware' => 'adminlogin'], function () {
 		//tin tức
 		Route::get('/News', 'NewsController@getNews')->name('News');
 
-		Route::post('/save-news','NewsController@postNews')->name('news.add');
+		Route::post('/save-news','NewsController@postNews')->name('News.add');
 
 		Route::get('/NewsList', 'NewsController@getNewsList')->name('NewsList');
 
-		Route::DELETE('/news/delete/{id}', 'NewsController@deleteNews');
+		Route::DELETE('/delete/{id}', 'NewsController@deleteNews');
 
 		Route::get('/newsedit/{id}', 'NewsController@newsedit')->name('news.edit');
         //cap nhat nguoi dung
@@ -185,6 +226,7 @@ Route::group(['prefix' => 'admin','middleware' => 'adminlogin'], function () {
 
 	Route::get('/EmailPromotionList', 'EmailPromotionController@getEmailPromotionList')->name('EmailPromotionList');
 
+	Route::get('/AdminFeelbackList', 'FeelbackController@getFeelbackList')->name('AdminFeelbackList');
 
 	Route::get('/ContactList', 'ContactController@getContactList')->name('ContactList');
 
@@ -193,3 +235,5 @@ Route::group(['prefix' => 'admin','middleware' => 'adminlogin'], function () {
 	Route::get('/index', 'AdminController@getindex')->name('index');
 
 });
+
+
