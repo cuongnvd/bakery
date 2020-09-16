@@ -110,25 +110,7 @@
                     <div class="formcontact" style="margin-bottom: 10%; border-bottom: 1px solid #555555">
                       <form class="contact" style="display: block;" action="{{URL::to('/save-feel')}}" method="post" enctype="multipart/form-data">
                         {{ csrf_field()}}
-                          <p style="color: red;text-align: center;">
-                              <?php
-                              $message = Session::get('message');
-                              if($message)
-                              {
-                              echo $message;
-                              Session::put('message',null);
-                              }
-                              ?> 
-                              </p> 
-                              @if($errors->any())
-                            <p>
-                              @foreach($errors->all() as $error)
-                                  <strong style="color: red; text-align: center;">
-                                     {{ $error }} <br />
-                                   </strong>
-                              @endforeach
-                            </p>
-                          @endif 
+                       
                         <div class="Account">
                             <div class="form">
                                 <form>
@@ -137,7 +119,7 @@
                                         <b class="color">*</b>
                                         </label>
                                         <div class="postform">
-                                            <input type="text" name="name" >
+                                            <input type="text" name="name" required="1">
                                         </div>
                                     </div>
                                     <div class="groupform">
@@ -161,7 +143,7 @@
                                    
                                    
                                     <div class="groupform">
-                                       <button >
+                                       <button name="feelbackbutton" class="feelbackbutton">
                                            <span>Viết cảm nhận</span>
                                        </button>
                                     </div>

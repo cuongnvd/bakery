@@ -27,14 +27,14 @@
     .box-title .content .item:hover{
         border: 1px solid #387b2b;
     }
-    form .tick span{
+    .tick span{
         font-weight: bold;
     min-height: 23px;
     display: block;
     max-width: 100%;
     margin-bottom: 5px;
     }
-    form .tick button{
+    .tick button{
     width: 100%;
     background: #387b2b;
     border: none;
@@ -46,7 +46,7 @@
     line-height: inherit;
     height: 40px;   
     }
-    form .tick button span{
+    .tick button span{
     padding-left: 25px;
     position: relative;
     overflow: hidden;
@@ -54,10 +54,10 @@
     font: inherit;
     width: 100%;
     }
-    form .tick button:hover{
+    .tick button:hover{
         background: #98ca4e;
     }
-    form .cost .count{
+    .cost .count{
         display: flex;
     align-items: center;
     padding: 3px;
@@ -111,8 +111,8 @@
                                                    <b>Thành phần</b> {!! $chitietproduct->ingredient !!}
                                                 </p>
                                             </div>
-                                         <form action="{{URL::to('/save-cart')}}" method="post">
-                                             {{ csrf_field()}}
+                                  
+                         
                                             <div class="row" style="width: 100%">
                                                  <div class="col-lg-4">
                                                      <div class="cost">
@@ -126,38 +126,33 @@
                                                          </div>
                                                      </div>
                                                  </div>
-                                                
-                                                  
-                                                 
                                                  <div class="col-lg-4">
-                                                     <div class="cost">
-                                                         <div class="text" style="font-size: 15px;line-height: 23px;font-weight: bold;color: #555555;margin-bottom: 8px;">
+                                                    <div class="cost">
+                                                        <div class="text" style="font-size: 15px;line-height: 23px;font-weight: bold;color: #555555;margin-bottom: 8px;">
                                                             Số lượng
-                                                         </div>
+                                                        </div>
                                                        
-                                                            <div class="input-group mb-3">
-                                                              <input type="number" class="form-control" id="demo" name="qty" min="0" max="99">
-                                                               <input type="hidden" class="form-control" id="demo" name="productid_hidden" min="0" max="99" value="{{$chitietproduct->id}}">
-                                                              <div class="input-group-append">
+                                                        <div class="input-group mb-3">
+                                                            <input type="number" class="form-control" id="demo" name="qty" min="0" max="99">
+                                                            <input type="hidden" class="form-control" id="demo" name="productid_hidden" min="0" max="99" value="{{$chitietproduct->id}}">
+                                                            <div class="input-group-append">
                                                                 <span class="input-group-text">Cái</span>
-                                                              </div>
                                                             </div>
-                                                      
-                                                         
-                                                     </div>
+                                                        </div>
+                                                    </div>
                                                  </div>
                                                  <div class="col-lg-4">
                                                     <div class="tick">
                                                     <span></span>
-                                                    <a href="{{route('cart')}}" style="outline: none">
-                                                     <button type="submit" style="outline: none">
+                                                    <a href="{!! url('add-to-cart',['id' => $chitietproduct->id]) !!}">
+                                                     <button type="submit" style="outline: none" name="add-to-cart" class="addcart">
                                                          <span><i class="fa fa-cart-plus" aria-hidden="true"></i> thêm vào giỏ  </span>
                                                      </button>
-                                                     </a>
+                                                    </a>
                                                     </div>
-                                                     
+                       
                                                  </div>
-                                                 </form>
+                                       
                                             </div>
                                         </div>
                                     </div>
@@ -242,9 +237,15 @@
                                         </div>
                                     </div>
                                     <div class="link">
-                                        <a href="{{route('chitietproduct', ['id' => $row->id])}}">
-                                            <span>XEM CHI TIẾT</span>
+                                        @if(Auth::check())
+                                        <a href="{!! url('add-to-cart',['id' => $row->id]) !!}">
+                                            <span>THÊM VÀO GIỎ HÀNG</span>
                                         </a>
+                                        @else
+                                        <a href="{{ route('login') }}">
+                                            <span>THÊM VÀO GIỎ HÀNG</span>
+                                        </a>
+                                        @endif
                                     </div>
                                     <div class="ribbon">
                                         

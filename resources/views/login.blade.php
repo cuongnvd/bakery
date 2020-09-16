@@ -127,7 +127,7 @@
                                         <b class="color">*</b>
                                         </label>
                                         <div class="postform">
-                                            <input type="text" name="email">
+                                            <input type="text" name="email" required="1">
                                         </div>
                                     </div>
                                     <div class="groupform">
@@ -135,7 +135,7 @@
                                         <b class="color">*</b>
                                         </label>
                                         <div class="postform">
-                                            <input type="password" name="password">
+                                            <input type="password" name="password" required="1">
                                         </div>
                                     </div>
                                     <div class="checkbox">

@@ -53,25 +53,7 @@
                       <form class="contact" action="{{URL::to('/save-contact')}}" method="post" style="display: block;">
                         <div class="titleform" style="margin-bottom: 15px;">
                           <div class="text">
-                            <p style="color: red;">
-                              <?php
-                              $message = Session::get('message');
-                              if($message)
-                              {
-                              echo $message;
-                              Session::put('message',null);
-                              }
-                              ?> 
-                              </p> 
-                              @if($errors->any())
-                            <p>
-                              @foreach($errors->all() as $error)
-                                  <strong style="color: red; text-align: center;">
-                                     {{ $error }} <br />
-                                   </strong>
-                              @endforeach
-                            </p>
-                          @endif
+                       
                             <p>
                               Nếu quý khách có thắc mắc, ý kiến phản hồi hay đóng góp xin vui lòng điền vào Form dưới đây và gửi cho chúng tôi.
                             <br />
@@ -110,7 +92,7 @@
                                     <div class="button">
                                       <div class="row">
                                         <div class="col-lg-12">
-                                          <button>
+                                          <button name="contactbutton" class="contactbutton">
                                             <span>
                                               Gửi
                                             </span>

@@ -104,25 +104,7 @@
                             <h1 style="font-size: 35px!important; color: #585858; text-align: center;">ĐĂNG KÝ</h1>
                         </div>
                     </div>
-                      <p style="color: red;text-align: center;">
-                            <?php
-                            $message = Session::get('message');
-                            if($message)
-                            {
-                            echo $message;
-                            Session::put('message',null);
-                            }
-                            ?> 
-                            </p> 
-                            @if($errors->any())
-                            <p>
-                                @foreach($errors->all() as $error)
-                                    <strong style="color: red; text-align: center;">
-                                       {{ $error }} <br />
-                                     </strong>
-                                @endforeach
-                            </p>
-                            @endif  
+                    
                     <div class="mid-content">
                         <div class="Account">
                             <form action="{{route('register_add')}}" method="post">
@@ -162,7 +144,7 @@
                                     </div>
 
                                     <div class="groupform">
-                                       <button >
+                                       <button name="registerbutton" class="registerbutton">
                                            <span>Đăng ký</span>
                                        </button>
                                     </div>

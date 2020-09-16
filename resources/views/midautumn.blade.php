@@ -39,9 +39,15 @@
                                         </div>
                                     </div>
                                     <div class="link">
-                                        <a href="{{route('midautumncake')}}">
-                                            <span>XEM CHI TIẾT</span>
+                                        @if(Auth::check())
+                                        <a href="{!! url('add-to-cart',['id' => $row->id]) !!}">
+                                            <span>THÊM VÀO GIỎ HÀNG</span>
                                         </a>
+                                        @else
+                                        <a href="{{ route('login') }}">
+                                            <span>THÊM VÀO GIỎ HÀNG</span>
+                                        </a>
+                                        @endif
                                     </div>
                                     <div class="ribbon">
                                         

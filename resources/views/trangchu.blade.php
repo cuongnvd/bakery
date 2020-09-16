@@ -3,61 +3,93 @@
 
 
 
+<style type="text/css">
+	
+	.link button{
+		width: 100%;
+	display: block;
+    text-align: center;
+    padding: 8px 10px;
+    color: #ffffff;
+    text-transform: uppercase;
+    background: #98ca4e;
+    border-top: solid 1px #98ca4e;
+    overflow: hidden;
+    text-decoration: none
+	}
 
+	.link button:hover{
+	border-top:1px solid #98ca4e;
+	background: white;
+  	color: #98ca4e;
+	}
+</style>
 
 
 
 <section>
     <article>
-             <div class="container-fluid">
-                  <h1 class="title" style=" color: #585858; font-size: 35px">SẢN PHẨM HOT</h1>
-					 <div class="slider" id="center">
-					 	@foreach($producthot as $row)
-					 	<div >
-					  	<div class="product iframeBox">
-				            <div class="img">
-				                <a href="{{route('chitietproduct', ['id' => $row->id])}}">
-				                    <img src="{{ asset('upload/'.$row->images )}}">
-				                </a>
-				            </div>
-				            <div class="tend">
-				                 <h3>
-				                     <a href="">
-				                         {{$row->name}}
-				                     </a>
-				                 </h3>
-				            </div>
-				            <div class="des">
-				                
-				            </div>
-				            <div class="price">
-				                <div class="red">
-				                    <b>Giá {{$row->cost}}</b>
-				                    <br/>
-				            
-				                </div>
-				            </div>
-				            <div class="link">
-				                <a href="{{route('chitietproduct', ['id' => $row->id])}}">
-				                    <span>XEM CHI TIẾT</span>
-				                </a>
-				            </div>
-				            <div class="ribbon">
-				                                        
-				            </div>
-				            <div class="effect">
-				                                        
-				            </div>
-				        </div>
-				        </div>
-				        @endforeach
+        <div class="container-fluid">
+            <h1 class="title" style=" color: #585858; font-size: 35px">SẢN PHẨM HOT</h1>
+			<div class="slider" id="center">
+			 	@foreach($producthot as $row)
+			 	<div >
+			 
+	 		   
+			  	<div class="product iframeBox">
+		            <div class="img">
+		                <a href="{{route('chitietproduct', ['id' => $row->id])}}">
+		                    <img src="{{ asset('upload/'.$row->images )}}">
+		                </a>
+		            </div>
+		            <div class="tend">
+		                <h3>
+		                    <a href="">
+		                        {{$row->name}}
+		                    </a>
+		                </h3>
+		            </div>
+		            <div class="des">
+		                
+		            </div>
+		            <div class="price">
+		                <div class="red">
+		                    <b>Giá {{$row->cost}}</b>
+		                    <br/>
+		            
+		                </div>
+		            </div>
+		            <div class="link">
+		            	@if(Auth::check())
+		            	<a href="{!! url('add-to-cart',['id' => $row->id]) !!}">
+		            		<span>THÊM VÀO GIỎ HÀNG</span>
+		            	</a>
+		            	@else
+		            	<a href="{{ route('login') }}">
+		            		<span>THÊM VÀO GIỎ HÀNG</span>
+		            	</a>
+		            	@endif
+	                </div>
+		            <div class="ribbon">
+		                                        
+		            </div>
+		            <div class="effect">
+		                                        
+		            </div>
+		        </div>
+		 
+		        </div>
+		        @endforeach
             </div>
         </div>
          <div class="container-fluid">
         	<h1 class="title"  style=" color: #585858; font-size: 35px">SẢN PHẨM MỚI</h1>
         	<div class="slider" id="autoplay">
         		@foreach($productnew as $row)
+    
+    			
         		<div>
+
 				 <div class="product iframeBox">
 		            <div class="img">
 		                <a href="{{route('chitietproduct', ['id' => $row->id])}}">
@@ -65,11 +97,11 @@
 		                </a>
 		            </div>
 		            <div class="tend">
-		                 <h3>
-		                     <a href="">
-		                          {{$row->name}}
-		                     </a>
-		                 </h3>
+		                <h3>
+		                    <a href="">
+		                        {{$row->name}}
+		                    </a>
+		                </h3>
 		            </div>
 		            <div class="des">
 		                
@@ -80,10 +112,16 @@
 		                </div>
 		            </div>
 		            <div class="link">
-		                <a href="{{route('chitietproduct', ['id' => $row->id])}}">
-		                    <span>XEM CHI TIẾT</span>
-		                </a>
-		            </div>
+		            	@if(Auth::check())
+		            	<a href="{!! url('add-to-cart',['id' => $row->id]) !!}">
+		            		<span>THÊM VÀO GIỎ HÀNG</span>
+		            	</a>
+		            	@else
+		            	<a href="{{ route('login') }}">
+		            		<span>THÊM VÀO GIỎ HÀNG</span>
+		            	</a>
+		            	@endif
+	                </div>
 		            <div class="ribbon">
 		                                        
 		            </div>
@@ -92,6 +130,7 @@
 		            </div>
 		        </div>
 		        </div>
+		  
 		        @endforeach
 		      
 			</div>
@@ -151,8 +190,7 @@
         <div class="container-fluid">
         	  <h1  style="color: #585858; text-align: center;font-size:35px">CẢM NHẬN KHÁCH HÀNG</h1>
 			<div class="slider" id="lazy">
-
-			  	<div class="comment">
+					  	<div class="comment">
 					<img data-lazy="https://savourebakery.com/vnt_upload/feeling/thumbs/200_crop_a84576a04c1874304735604d9f47d5a4.jpg" style="max-width: 100%; max-height: 100%; border-radius: 100%" />
 					<br />
 					<h5 style="color: black; font-size: 20px">

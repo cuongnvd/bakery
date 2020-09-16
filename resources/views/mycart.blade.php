@@ -169,7 +169,7 @@
                 <div class="box_mid">
                     <div class="mid-title">
                         <div class="titleL">
-                            <h1 style="font-size: 35px!important; color: #585858; text-align: center;">Giỏ hàng</h1>
+                    
                         </div>
                     </div>
                       <p style="color: red;text-align: center;">
@@ -192,28 +192,43 @@
                             </p>
                             @endif  
                     <div class="mid-content" >
+                        <div class="menuTab">
+                             <ul >
+                                  <li>
+                                    <a href="{{route('info')}}"><i class="fa fa-user" aria-hidden="true"></i> THÔNG TIN CÁ NHÂN</a>
+                                </li>
+                              
+                                 <li>
+                                    <a href="{{route('mypassword')}}"><i class="fa fa-lock" aria-hidden="true"></i> ĐỔI MẬT KHẨU</a>
+                                </li>
+                                 <li>
+                                    <a href="{{route('mycart')}}"><i class="fa fa-list-ul" aria-hidden="true"></i> ĐƠN HÀNG</a>
+                                </li>
+                                <li>
+                                    <a href="{{url('logout')}}"><i class="fa fa-sign-out" aria-hidden="true"></i> ĐĂNG XUẤT</a>
+                                </li>
+                            </ul>
+                        </div>
                     <form>
                         <div class="tablecart">
                             <table width="100%">
                                 <thead style="display: table-header-group;vertical-align: middle;border-color: inherit;">
                                     <tr>
-                                        <th width="40%">
-                                            Sản phẩm
+                                        <th >
+                                            MÃ ĐƠN HÀNG
                                         </th>
                                         <th>
-                                            Đơn giá
+                                            NGÀY ĐẶT
                                         </th>
                                         <th>
-                                            Số lượng
+                                            SẢN PHẨM
                                         </th>
                                         <th>
-                                            Tổng cộng
+                                            TỔNG TIỀN
                                         </th>
+                                
                                         <th>
-                                            
-                                        </th>
-                                        <th>
-                                            Xóa
+                                          TRẠNG THÁI
                                         </th>
                                     </tr>
                                 </thead>
@@ -221,13 +236,13 @@
                            
 
                                 <tbody>
-                                    @foreach($content as $item)
+                                    
          
                                     <tr style="border-bottom: 1px solid #BDBDBD">
                                         <td>
                                           
                                             <div class="tensp" style="font-size: 20px;margin-top: 2%;margin-left: 5%">
-                                                {!! $item->name !!}
+                                            
                                             </div>
                                             <div class="clear">
                                                 
@@ -235,22 +250,22 @@
                                         </td>
                                         <td style="text-align: center;">
                                             <div class="price">
-                                              {!! number_format("$item->price",0,",","." )!!}
+                                             
                                             </div>
                                         </td>
                                         <td>
-                                            <div class="input-group mb-3" style="width: 50%; margin: auto; margin-top: 5%">
-                                              <input type="number" class="form-control" id="demo" name="amount" min="0" max="99" style="font-weight: bold;" value='{!!$item->qty!!}'>
+                                           <!--  <div class="input-group mb-3" style="width: 50%; margin: auto; margin-top: 5%">
+                                              <input type="number" class="form-control" id="demo" name="amount" min="0" max="99" style="font-weight: bold;" value=''>
                                               <div class="input-group-append">
                                                 <span class="input-group-text">Cái</span>
                                               </div>
-                                            </div>
+                                            </div> -->
                                         </td>
                                         <td>
                                             <div class="total" style="color: #387b2b; text-align: center;">
 
                                  
-                                                {!! number_format($item->price*$item->qty,0,",",".") !!}
+                                               
                                             </div>
                                         </td>
                                         <td>
@@ -258,74 +273,17 @@
                                         </td>
                                         <td style="text-align: center;">
                                     
-                                            <a href="{!! url('delete',['id' => $item->rowid]) !!}">
+                                           <!--  <a href="">
                                                 <i class="fa fa-times fa-2x" aria-hidden="true"></i>
-                                            </a>
+                                            </a> -->
                                         </td>
                                     </tr>
-                                    @endforeach
+                        
                                 </tbody>
                             
                             </table>
-                            <div class="infototal" style="background: none">
-                                <div class="row">
-                                    <div class="col-sm-6">
-                                    </div>
-                                    <div class="col-sm-6" style="background: none">
-                                        <ul style="list-style: none;">
-                                            <li style="margin-bottom: 5px;"> 
-                                                <div class="slot1">
-                                                    <div class="row">
-                                                       
-                                                        <div class="col-lg-6">
-                                                            Thành tiền
-                                                        </div>
-                                                        <div class="col-lg-6">
-                                                            <p >
-                                                                
-                                                            </p>
-                                                             {!! $total !!}
-                                                    
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                             <li style="margin-top: 10px;padding-top: 10px;font-weight: bold;border-top: solid 1px ;padding-top: 10px;"> 
-                                                <div class="slot1">
-                                                    <div class="row">
-                                                        <div class="col-lg-6" >
-                                                            Tổng đơn hàng
-                                                        </div>
-                                                        <div class="col-lg-6" style="color: #387b2b;">
-                                                            {!! $total !!}
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="pay">
-                                <div class="row">
-                                    <div class="col-lg-7">
-                                        
-                                    </div>
-                                    <div class="col-lg-5" >
-                                        <div class="tick">
-                                                    <span></span>
-                                                    <a href="{{route('cart')}}" style="outline: none">
-                                                     <button style="outline: none">
-                                                         <span> TIẾN HÀNH THANH TOÁN  </span>
-                                                     </button>
-                                                     </a>
-                                                    </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="note" style="margin-top: 5%">
-                                Lưu ý: Thời gian xử lý đơn hàng online: Từ 08h00 đến 17h30 vào các ngày làm việc trong tuần, trừ Thứ 7 và Chủ Nhật
-                            </div>
+                       
+                           
                         </div>
                     </form>
                     </div>
