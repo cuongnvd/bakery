@@ -105,7 +105,7 @@
 					<form action="{{URL::to('/save-emailpromotion')}}" method="post">
       					{{ csrf_field()}}
 						<input type="text" placeholder="Nhập Email của bạn" required="1" name="email" style="width: calc(100% - 80px);height: 40px;border: none;background: #FFFFFF;padding-left: 15px;float: left;color: #2a2a2a;    font-family: inherit;font-size: inherit;line-height: inherit;outline: none">
-     					 <button  onClick = "alert('Bạn đã đăng ký nhận thông báo khuyến mãi thành công');" type="submit" style="margin-left: 10px;width: 70px;height: 40px;background: #98ca4e;border: none;padding: 0;font-size: 20px;line-height: 30px;color: #ffffff;transition: all 0.3s linear;	float: left; outline: none">
+     					 <button  name="addemail" class="addemail" type="submit" style="margin-left: 10px;width: 70px;height: 40px;background: #98ca4e;border: none;padding: 0;font-size: 20px;line-height: 30px;color: #ffffff;transition: all 0.3s linear;	float: left; outline: none">
      					 	<span>
      					 		<i class="fa fa-envelope"></i>
      					 	</span>
@@ -144,7 +144,15 @@
 
 </div>
 
+<script>
+	$(document).ready(function(){
+		$('.addemail').click(function(){
+			swal("Thông báo!", "Bạn đã đăng ký nhận email khuyến mãi thành công!");
 
+		});
+	});
+
+</script>
 
 </body>
 </html>

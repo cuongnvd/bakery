@@ -12,10 +12,11 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <!--   <link rel="stylesheet" type="text/css" href="/css1.css"> -->
 
-
+  <meta name="csrf-token" content="{{ csrf_token() }}">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/kenwheeler/slick@1.8.0/slick/slick.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/kenwheeler/slick@1.8.0/slick/slick-theme.css">
   <link rel="stylesheet" href="{{asset('/css/css1.css')}}">
+  <link rel="stylesheet" href="{{asset('/css/sweetalert.css')}}">
 
   <!-- Script -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -34,7 +35,10 @@
   <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js" ></script>
   <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/kenwheeler/slick@1.8.0/slick/slick.min.js" ></script>
   <script type="text/javascript" src="{{asset('/js/js.js')}}" ></script>
+<!-- ---- -->
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
+  <script src="{{asset('ajax.js')}}"></script>
 
 <style type="text/css">
     
@@ -244,31 +248,32 @@ article{
       </a>
       <div class="dropdown-menu" style=" border: none;">
         <form class="form-inline" action="{{route('search')}}" style="margin-left: 2%; width: 95%" method="GET">
-            <input type="text" id="search" placeholder="    Search..."  name="productkey" class="tim"/>
+            <input type="text" id="search" placeholder="    Search..."  name="productkey" class="tim"/ style="width: 300px">
         </form>
 
 
 
       </div>
     </li>
-      <li class="nav-item" >
-      <a class="nav-link" href="{{route('login')}}" >LOGIN</a>
+      <li class="nav-item dropdown">
+         @if(Auth::check())
+         <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+         {{Auth::user()->name}}
+         </a>
+         <div class="dropdown-menu" style="border: none">
+        <a class="dropdown-item" href="{{route('info')}}">THÔNG TIN CÁ NHÂN</a>
+        <a class="dropdown-item" href="{{route('mypassword')}}">ĐỔI MẬT KHẨU</a>
+        <a class="dropdown-item" href="{{route('mycart')}}">ĐƠN HÀNG</a>
+        <a class="dropdown-item" href="{{url('logout')}}">ĐĂNG XUẤT</a>
+      </div>
+         @else
+         
+          <a class="nav-link" href="{{route('login')}}" >LOGIN</a>
+      @endif
+  
     </li>
-     <!--  <li>
-            <a href="">
-            @if(Auth::check())
-          <b style="color: white">
-            {{Auth::user()->name}}
-          </b>
-          @endif
-        </a>
-        <ul class="sub-head">
-          <li><a href="">Thông tin </a> </li>
-          <li><a href="{{url('logout')}}"> Đăng xuất </a></li>
-        </ul>
-          </li> -->
     <li class="nav-item" >
-      <a class="nav-link" href="#"> CART </a>
+      <a class="nav-link" href="{{route('cart')}}"> CART </a>
     </li>
    
 
