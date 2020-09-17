@@ -23,7 +23,7 @@ class EmailPromotionController extends Controller
     public function getEmailPromotionList(){
 
         $emailpromotion = EmailPromotion::select('id','email')->orderBy('id','DESC')->paginate(7);
-  
+        
         return view('admin/EmailPromotionList',compact('emailpromotion'));
     }
 }

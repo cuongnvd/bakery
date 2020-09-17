@@ -75,6 +75,8 @@ class AdminController extends Controller
         return view('admin.searchadmin',['searchproduct'=>$searchproduct,'searchnews'=>$searchnews,'user'=>$user,'adminkey'=>$adminkey]);
     }
 
+    
+
    
  
 }

@@ -18,11 +18,22 @@ class FeelbackController extends Controller
     	return view('feelback',compact(['feelback']));
     }
     public function getFeelbackList(){
-        $feelbacklist = Feelback::select('id','name','images','content','date',)->orderBy('id','DESC');
+        $feelbacklist = Feelback::select('id','name','images','content','date')->orderBy('id','DESC')->paginate(7);
 
         return view('admin/AdminFeelbackList',compact('feelbacklist'));
     }
-    
+   
+
+     public function deleteFeelback($id)
+    {
+        
+        Feelback::find($id)->delete();
+
+        return response()->json([
+        'success' => 'Xóa thể loại thành công!'
+    ]);
+    }
+
     public function postfeelback(Request $request)
     {   
         $feelback = new Feelback();

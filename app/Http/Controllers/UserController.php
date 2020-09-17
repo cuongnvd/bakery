@@ -16,7 +16,7 @@ use App\User;
 class UserController extends Controller
 {
     public function getUser(){
-
+        
     	 return view('admin.User');
     }
     public function postAdduser(Request $request){
@@ -185,6 +185,24 @@ class UserController extends Controller
         $users->name = $request->name;
         $users->email = $request->email;
         $users->password = bcrypt($request->password);
+        $users->role = $request->role;
+        $users->save();
+        return redirect()->Route('UserList')->with('message','Cập nhật thành công.');
+    }
+
+    public function roleedit($id)
+    {
+        $users = User::findOrFail($id);
+
+        $pageName = 'Change Password';
+        return view('/admin/UserRole', compact('users'));
+    }
+    public function updaterole(Request $request, $id)
+    {
+
+  
+        $users = User::find($id);
+       
         $users->role = $request->role;
         $users->save();
         return redirect()->Route('UserList')->with('message','Cập nhật thành công.');
