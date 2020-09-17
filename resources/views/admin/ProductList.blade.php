@@ -496,11 +496,12 @@
                     <td>{{ $row->productnew }}</td>
                     <td>{!! $row->note !!}</td>
                     <td>
-                      <button>
-                        <a href="{{route('product.edit',['id'=>$row->id])}}">Edit</a>
+                      <button style="border: none; background: #387b2b;">
+                        <a href="{{route('product.edit',['id'=>$row->id])}}" style="color: white">EDIT</a>
                       </button>
-                      
-                        <button class="deleteProduct" id="delete"  data-id="{{ $row->id }}">Delete</button>
+                      <br />
+                      <br />
+                        <button class="deleteProduct" id="delete"  data-id="{{ $row->id }}" style="border: none; background: red; color: white">DELETE</button>
                     </td>
                   </tr>
                   </tbody>

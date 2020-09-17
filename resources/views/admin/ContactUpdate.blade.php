@@ -6,8 +6,6 @@
   <title>AdminLTE 3 | Dashboard</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
-
-  <meta name="csrf-token" content="{{ csrf_token() }}">
   <!-- Font Awesome -->
   <link rel="stylesheet" href="{{asset('plugins/fontawesome-free/css/all.min.css')}}">
   <!-- Ionicons -->
@@ -28,8 +26,6 @@
   <link rel="stylesheet" href="{{asset('plugins/summernote/summernote-bs4.css')}}">
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
-
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.2.0/sweetalert2.min.css">
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
@@ -177,11 +173,15 @@
     <a href="{{route('index')}}" class="brand-link">
       <img src="{{asset('dist/img/AdminLTELogo.png')}}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
            style="opacity: .8">
-           <span class="brand-text font-weight-light">Admin Brot Bakery</span>
+      <span class="brand-text font-weight-light">Admin Brot Bakery</span>
     </a>
-    <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <!-- Sidebar user panel (optional) -->
+      <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="image">
-         <img src="{{ asset('/upload/'.Auth::user()->images )}}" class="img-circle elevation-2" alt="User Image" >
+          <img src="{{ asset('/upload/'.Auth::user()->images )}}" class="img-circle elevation-2" alt="User Image" >
         </div>
         <div class="info">
           <a href="#" class="d-block">@if(Auth::check())
@@ -192,40 +192,12 @@
         </div>
       </div>
 
-    <!-- Sidebar -->
-    <div class="sidebar">
-      <!-- Sidebar user panel (optional) -->
-      <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-        <div class="image">
-          <img src="{{asset('dist/img/user2-160x160.jpg')}}" class="img-circle elevation-2" alt="User Image">
-        </div>
-        <div class="info">
-          <a href="{{route('index')}}" class="d-block">Alexander Pierce</a>
-        </div>
-      </div>
-
       <!-- Sidebar Menu -->
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
-          <li class="nav-item has-treeview menu-open">
-            <a href="#" class="nav-link active">
-              <i class="nav-icon fas fa-tachometer-alt"></i>
-              <p>
-                Dashboard
-                <i class="right fas fa-angle-left"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="./index.html" class="nav-link active">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Dashboard v1</p>
-                </a>
-              </li>
-            </ul>
-          </li>
+         
           <li class="nav-header">OPTION</li>
           <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
@@ -248,6 +220,7 @@
                   <p>User List</p>
                 </a>
               </li>
+              
           
             </ul>
           </li>
@@ -393,6 +366,7 @@
             </ul>
           </li>
 
+
         </ul>
       </nav>
       <!-- /.sidebar-menu -->
@@ -407,98 +381,75 @@
     <!-- /.content-header -->
 
     <!-- Main content -->
- <section class="content">
+      <form action="{{route('option_update',$contact->id )}}" method="post" >
+      @method('PATCH')
+      @csrf
+      <input type="hidden" name="id" value="{{$contact->id }}">
+     <section class="content" style="margin-left: 5%">
+      <div class="row">
+        <div class="col-md-6">
+          <div class="card card-primary">
+            <div class="card-header">
+              <h3 class="card-title">General</h3>
 
-      <div class="container-fluid">
-        
-        <div class="row">
-
-          <div class="col-12">
-
-            <div class="card">
-              <div class="card-header">
-                 <h2>
-                  DANH SÁCH CẢM NHẬN KHÁCH HÀNG
-                </h2>
-                <h3 class="card-title"> <p style="color: red;">
-                    <?php
-                    $message = Session::get('message');
-                    if($message)
-                    {
-                    echo $message;
-                    Session::put('message',null);
-                    }
-                    ?> 
-                    </p> 
-                    @if($errors->any())
-                  <p>
-                    @foreach($errors->all() as $error)
-                        <strong style="color: red; text-align: center;">
-                           {{ $error }} <br />
-                         </strong>
-                    @endforeach
-                  </p>
-                @endif  
-              </h3>
+              <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+                  <i class="fas fa-minus"></i></button>
               </div>
-              <!-- /.card-header -->
-              <div class="card-body">
-                <table id="example2" class="table table-bordered table-hover">
-                  <thead>
-                  <tr style="text-align: center;">
-                    <th width="5%">STT</th>
-                    <th width="10%">
-                      HỌ TÊN
-                    </th>
-                    <th>ẢNH</th>
-                    <th>
-                      NỘI DUNG
-                    </th>
-                    <th>
-                      NGÀY ĐĂNG
-                    </th>
-                    <th>
-                      OPTION
-                    </th>
-                  </tr>
-                  </thead>
-                  @foreach($feelbacklist as $row)
-                  <tbody>
-                  
-                  <tr>
-                    <td>{{ $row->id }}</td>
-                    <td>{{ $row->name }}</td>
-                    <td>
-                      <img src="{{ asset('/upload/'.$row->images )}}" style="max-width: 100px; max-height: 100px ; padding-top: 5px">
-                    </td>
-                    <td>{{ $row->content }}</td>
-                    <td>{{ $row->date }}</td>
-                    <td>
-                       <button class="deleteFeelback" id="delete"  data-id="{{ $row->id }} " style="border: none; background: red; color: white">DELETE</button>
-                    </td>
-             
-          
-                  </tr>
-                  </tbody>
-                  @endforeach
-                  
-                </table>
-                <div style="margin-top: 2%;">
-                {{ $feelbacklist->links() }}
-                </div>
-              </div>
-              <!-- /.card-body -->
             </div>
-            <!-- /.card -->
             
+            <div class="card-body">
+                 <p style="color: red;">
+                            <?php
+                            $message = Session::get('message');
+                            if($message)
+                            {
+                            echo $message;
+                            Session::put('message',null);
+                            }
+                            ?> 
+                            </p> 
+                            @if($errors->any())
+        <p>
+            @foreach($errors->all() as $error)
+                <strong style="color: red">
+                   {{ $error }} <br />
+                 </strong>
+            @endforeach
+        </p>
+        @endif  
 
+              <tr>
+                    <td>
+                      <div class="form-group">
+                    <label for="inputName">TÌNH TRẠNG LIÊN HỆ KHÁCH HÀNG</label>
+                    <div class="form-group">
+                      <select class="form-control select2" name="status" style="width: 100%;">
+                        <option value="0">1. CHƯA TRẢ LỜI</option>
+                        <option value="1">2. ĐÃ TRẢ LỜI</option>
+                      </select>
+                    </div>
+                  </div>
+                    </td>
+                  </tr>
+              
+            </div>
+            <!-- /.card-body -->
           </div>
-          <!-- /.col -->
+          <!-- /.card -->
         </div>
-        
+
       </div>
-         
+      <div class="row">
+        <div class="col-6">
+          <a href="{{route('ContactList')}}" class="btn btn-secondary">Cancel</a>
+          <input type="submit" value="Cập nhật"  class="btn btn-success float-right">
+        </div>
+ 
+      </div>
+      
     </section>
+         </form>  
     <br />
         </div>
         <!-- /.row (main row) -->
@@ -522,7 +473,7 @@
   <!-- /.control-sidebar -->
 </div>
 <!-- ./wrapper -->
- <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.2.0/sweetalert2.all.min.js"></script>
+
 <!-- jQuery -->
 <script src="{{asset('plugins/jquery/jquery.min.js')}}"></script>
 <!-- jQuery UI 1.11.4 -->
@@ -557,7 +508,5 @@
 <script src="{{asset('dist/js/pages/dashboard.js')}}"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="{{asset('dist/js/demo.js')}}"></script>
-
-<script src="{{asset('ajax.js')}}"></script>
 </body>
 </html>

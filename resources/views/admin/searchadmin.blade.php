@@ -495,11 +495,12 @@
                     <td>{{ $row->productnew }}</td>
                     <td>{!! $row->note !!}</td>
                     <td>
-                      <button>
-                        <a href="{{route('product.edit',['id'=>$row->id])}}">Edit</a>
+                      <button style="border: none; background: #387b2b;">
+                        <a href="{{route('product.edit',['id'=>$row->id])}}" style="color: white">EDIT</a>
                       </button>
-                      
-                        <button class="deleteProduct" id="delete"  data-id="{{ $row->id }}">Delete</button>
+                      <br />
+                      <br />
+                        <button class="deleteProduct" id="delete"  data-id="{{ $row->id }}" style="border: none; background: red; color: white">DELETE</button>
                     </td>
                   </tr>
                   </tbody>
@@ -561,6 +562,9 @@
                   
                   <tr>
                     <td>{{ $row->id }}</td>
+                    <td>
+                      <img src="{{ asset('/upload/'.$row->images )}}" style="max-width: 100px; max-height: 100px ; padding-top: 5px; border-radius: 100% ">
+                    </td>
                     <td >{{ $row->name }}</td>
                 
                     <td>
@@ -578,14 +582,17 @@
                       ?>
                     </td>
                     <td>
-                      <button>
-                        <a href="{{route('password.edit',['id'=>$row->id])}}">Edit</a>
-                        
+                      <button style="border: none; background: #387b2b;">
+                        <a href="{{route('password.edit',['id'=>$row->id])}}" style="color: white">EDIT</a>
                       </button>
-                     
-                        || 
-                       <button class="deleteUser" id="delete"  data-id="{{ $row->id }}">Delete</button>
-                      
+                      <br />
+                      <br />
+                      <button style="border: none; background: #387b2b;">
+                        <a href="{{route('role.edit',['id'=>$row->id])}}" style="color: white">ROLE</a>
+                      </button>
+                      <br />
+                      <br />
+                       <button class="deleteUser" id="delete"  data-id="{{ $row->id }}" style="border: none; background: red; color: white">DELETE</button>
                     </td>
                   </tr>
                   </tbody>
@@ -673,10 +680,12 @@
              
         
                     <td>
-                        <button>
-                        <a href="{{route('news.edit',['id'=>$row->id])}}">Edit</a>
+                        <button style="border: none; background: #387b2b;">
+                        <a href="{{route('news.edit',['id'=>$row->id])}}" style="color: white">EDIT</a>
                       </button>
-                        <button class="deleteNews" id="delete"  data-id="{{ $row->id }}">Delete</button>
+                      <br />
+                      <br />
+                        <button class="deleteNews" id="delete"  data-id="{{ $row->id }}" style="border: none; background: red; color: white">DELETE</button>
                     </td>
                   </tr>
                   </tbody>

@@ -423,7 +423,7 @@
                     <th>ẢNH ĐẠI DIỆN</th>
                     <th width="20%">TÊN NGƯỜI DÙNG</th>
                     <th>EMAIL</th>
-                    <th>PASSWORD</th>
+                    <th >PASSWORD</th>
                     <th>ROLE</th>
                     <th>OPTION</th>
                   </tr>
@@ -453,14 +453,17 @@
                       ?>
                     </td>
                     <td>
-                      <button>
-                        <a href="{{route('password.edit',['id'=>$row->id])}}">Edit</a>
-                        
+                      <button style="border: none; background: #387b2b;">
+                        <a href="{{route('password.edit',['id'=>$row->id])}}" style="color: white">EDIT</a>
                       </button>
-                     
-                        || 
-                       <button class="deleteUser" id="delete"  data-id="{{ $row->id }}">Delete</button>
-                      
+                      <br />
+                      <br />
+                      <button style="border: none; background: #387b2b;">
+                        <a href="{{route('role.edit',['id'=>$row->id])}}" style="color: white">ROLE</a>
+                      </button>
+                      <br />
+                      <br />
+                       <button class="deleteUser" id="delete"  data-id="{{ $row->id }}" style="border: none; background: red; color: white">DELETE</button>
                     </td>
                   </tr>
                   </tbody>

@@ -439,6 +439,12 @@
                     <th>
                       NỘI DUNG
                     </th>
+                    <th width="10%">
+                      TÌNH TRẠNG
+                    </th>
+                    <th width="10%">
+                      OPTION
+                    </th>
                   </tr>
                   </thead>
                   @foreach($contactlist as $row)
@@ -450,8 +456,12 @@
                     <td>{{ $row->name }}</td>
                     <td>{{ $row->title }}</td>
                     <td>{{ $row->content }}</td>
-           
-             
+                    <td>{{ $row->status }}</td>
+                    <td>
+                      <button style="border: none; background: #387b2b;">
+                        <a href="{{route('option.edit',['id'=>$row->id])}}" style=" color: white">EDIT</a>
+                      </button>
+                    </td>
           
                   </tr>
                   </tbody>
