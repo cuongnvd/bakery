@@ -205,6 +205,10 @@ Route::group(['prefix' => 'admin','middleware' => 'adminlogin'], function () {
         //cap nhat nguoi dung
         Route::PATCH('/UserUpdate/{id}', 'UserController@updatepassword')->name('password_update');
 
+        Route::get('/roleedit/{id}', 'UserController@roleedit')->name('role.edit');
+        //cap nhat nguoi dung
+        Route::PATCH('/UserRole/{id}', 'UserController@updaterole')->name('role_update');
+
 	});
 
 	Route::group(['prefix' => 'news'], function () {
@@ -228,7 +232,13 @@ Route::group(['prefix' => 'admin','middleware' => 'adminlogin'], function () {
 
 	Route::get('/AdminFeelbackList', 'FeelbackController@getFeelbackList')->name('AdminFeelbackList');
 
+	Route::DELETE('/delete/{id}', 'FeelbackController@deleteFeelback');
+
 	Route::get('/ContactList', 'ContactController@getContactList')->name('ContactList');
+
+	Route::get('/optionedit/{id}', 'ContactController@optionedit')->name('option.edit');
+
+	Route::PATCH('/ContactUpdate/{id}', 'ContactController@updatecontact')->name('option_update');
 
 	Route::get('/searchadmin','AdminController@searchadmin')->name('searchadmin');
 
